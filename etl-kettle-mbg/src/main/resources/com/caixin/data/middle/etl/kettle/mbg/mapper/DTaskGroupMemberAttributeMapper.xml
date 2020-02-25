@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.DTaskGroupMemberAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttribute">
+    <id column="ID_TASK_GROUP_MEMBER_ATTRIBUTE" jdbcType="BIGINT" property="idTaskGroupMemberAttribute" />
+    <result column="TASK_GROUP_NAME" jdbcType="VARCHAR" property="taskGroupName" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="ID_TASK" jdbcType="BIGINT" property="idTask" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_PATH" jdbcType="VARCHAR" property="taskPath" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_TASK_GROUP_MEMBER_ATTRIBUTE, TASK_GROUP_NAME, TYPE, ID_TASK, TASK_NAME, TASK_PATH
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttributeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_task_group_member_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from d_task_group_member_attribute
+    where ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{idTaskGroupMemberAttribute,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from d_task_group_member_attribute
+    where ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{idTaskGroupMemberAttribute,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttributeExample">
+    delete from d_task_group_member_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttribute">
+    insert into d_task_group_member_attribute (ID_TASK_GROUP_MEMBER_ATTRIBUTE, TASK_GROUP_NAME, 
+      TYPE, ID_TASK, TASK_NAME, 
+      TASK_PATH)
+    values (#{idTaskGroupMemberAttribute,jdbcType=BIGINT}, #{taskGroupName,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{idTask,jdbcType=BIGINT}, #{taskName,jdbcType=VARCHAR}, 
+      #{taskPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttribute">
+    insert into d_task_group_member_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idTaskGroupMemberAttribute != null">
+        ID_TASK_GROUP_MEMBER_ATTRIBUTE,
+      </if>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="idTask != null">
+        ID_TASK,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="taskPath != null">
+        TASK_PATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idTaskGroupMemberAttribute != null">
+        #{idTaskGroupMemberAttribute,jdbcType=BIGINT},
+      </if>
+      <if test="taskGroupName != null">
+        #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="idTask != null">
+        #{idTask,jdbcType=BIGINT},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null">
+        #{taskPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttributeExample" resultType="java.lang.Long">
+    select count(*) from d_task_group_member_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update d_task_group_member_attribute
+    <set>
+      <if test="record.idTaskGroupMemberAttribute != null">
+        ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{record.idTaskGroupMemberAttribute,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskGroupName != null">
+        TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idTask != null">
+        ID_TASK = #{record.idTask,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskName != null">
+        TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskPath != null">
+        TASK_PATH = #{record.taskPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update d_task_group_member_attribute
+    set ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{record.idTaskGroupMemberAttribute,jdbcType=BIGINT},
+      TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      ID_TASK = #{record.idTask,jdbcType=BIGINT},
+      TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      TASK_PATH = #{record.taskPath,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttribute">
+    update d_task_group_member_attribute
+    <set>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="idTask != null">
+        ID_TASK = #{idTask,jdbcType=BIGINT},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null">
+        TASK_PATH = #{taskPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{idTaskGroupMemberAttribute,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupMemberAttribute">
+    update d_task_group_member_attribute
+    set TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      ID_TASK = #{idTask,jdbcType=BIGINT},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_PATH = #{taskPath,jdbcType=VARCHAR}
+    where ID_TASK_GROUP_MEMBER_ATTRIBUTE = #{idTaskGroupMemberAttribute,jdbcType=BIGINT}
+  </update>
+</mapper>

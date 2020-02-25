@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.DTimerschedulerMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    <id column="ID_JOBTASK" jdbcType="BIGINT" property="idJobtask" />
+    <result column="ID_JOB" jdbcType="BIGINT" property="idJob" />
+    <result column="SLAVES" jdbcType="VARCHAR" property="slaves" />
+    <result column="JOB_NAME" jdbcType="VARCHAR" property="jobName" />
+    <result column="ISREPEAT" jdbcType="CHAR" property="isrepeat" />
+    <result column="SCHEDULERTYPE" jdbcType="INTEGER" property="schedulertype" />
+    <result column="INTERVALMINUTES" jdbcType="INTEGER" property="intervalminutes" />
+    <result column="HOUR" jdbcType="INTEGER" property="hour" />
+    <result column="MINUTES" jdbcType="INTEGER" property="minutes" />
+    <result column="WEEKDAY" jdbcType="INTEGER" property="weekday" />
+    <result column="DAYOFMONTH" jdbcType="INTEGER" property="dayofmonth" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    <result column="executionConfig" jdbcType="LONGVARCHAR" property="executionconfig" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_JOBTASK, ID_JOB, SLAVES, JOB_NAME, ISREPEAT, SCHEDULERTYPE, INTERVALMINUTES, HOUR, 
+    MINUTES, WEEKDAY, DAYOFMONTH, username
+  </sql>
+  <sql id="Blob_Column_List">
+    executionConfig
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerschedulerExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from d_timerscheduler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerschedulerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_timerscheduler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from d_timerscheduler
+    where ID_JOBTASK = #{idJobtask,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from d_timerscheduler
+    where ID_JOBTASK = #{idJobtask,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerschedulerExample">
+    delete from d_timerscheduler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    insert into d_timerscheduler (ID_JOBTASK, ID_JOB, SLAVES, 
+      JOB_NAME, ISREPEAT, SCHEDULERTYPE, 
+      INTERVALMINUTES, HOUR, MINUTES, 
+      WEEKDAY, DAYOFMONTH, username, 
+      executionConfig)
+    values (#{idJobtask,jdbcType=BIGINT}, #{idJob,jdbcType=BIGINT}, #{slaves,jdbcType=VARCHAR}, 
+      #{jobName,jdbcType=VARCHAR}, #{isrepeat,jdbcType=CHAR}, #{schedulertype,jdbcType=INTEGER}, 
+      #{intervalminutes,jdbcType=INTEGER}, #{hour,jdbcType=INTEGER}, #{minutes,jdbcType=INTEGER}, 
+      #{weekday,jdbcType=INTEGER}, #{dayofmonth,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{executionconfig,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    insert into d_timerscheduler
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idJobtask != null">
+        ID_JOBTASK,
+      </if>
+      <if test="idJob != null">
+        ID_JOB,
+      </if>
+      <if test="slaves != null">
+        SLAVES,
+      </if>
+      <if test="jobName != null">
+        JOB_NAME,
+      </if>
+      <if test="isrepeat != null">
+        ISREPEAT,
+      </if>
+      <if test="schedulertype != null">
+        SCHEDULERTYPE,
+      </if>
+      <if test="intervalminutes != null">
+        INTERVALMINUTES,
+      </if>
+      <if test="hour != null">
+        HOUR,
+      </if>
+      <if test="minutes != null">
+        MINUTES,
+      </if>
+      <if test="weekday != null">
+        WEEKDAY,
+      </if>
+      <if test="dayofmonth != null">
+        DAYOFMONTH,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="executionconfig != null">
+        executionConfig,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idJobtask != null">
+        #{idJobtask,jdbcType=BIGINT},
+      </if>
+      <if test="idJob != null">
+        #{idJob,jdbcType=BIGINT},
+      </if>
+      <if test="slaves != null">
+        #{slaves,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="isrepeat != null">
+        #{isrepeat,jdbcType=CHAR},
+      </if>
+      <if test="schedulertype != null">
+        #{schedulertype,jdbcType=INTEGER},
+      </if>
+      <if test="intervalminutes != null">
+        #{intervalminutes,jdbcType=INTEGER},
+      </if>
+      <if test="hour != null">
+        #{hour,jdbcType=INTEGER},
+      </if>
+      <if test="minutes != null">
+        #{minutes,jdbcType=INTEGER},
+      </if>
+      <if test="weekday != null">
+        #{weekday,jdbcType=INTEGER},
+      </if>
+      <if test="dayofmonth != null">
+        #{dayofmonth,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="executionconfig != null">
+        #{executionconfig,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerschedulerExample" resultType="java.lang.Long">
+    select count(*) from d_timerscheduler
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update d_timerscheduler
+    <set>
+      <if test="record.idJobtask != null">
+        ID_JOBTASK = #{record.idJobtask,jdbcType=BIGINT},
+      </if>
+      <if test="record.idJob != null">
+        ID_JOB = #{record.idJob,jdbcType=BIGINT},
+      </if>
+      <if test="record.slaves != null">
+        SLAVES = #{record.slaves,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobName != null">
+        JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isrepeat != null">
+        ISREPEAT = #{record.isrepeat,jdbcType=CHAR},
+      </if>
+      <if test="record.schedulertype != null">
+        SCHEDULERTYPE = #{record.schedulertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.intervalminutes != null">
+        INTERVALMINUTES = #{record.intervalminutes,jdbcType=INTEGER},
+      </if>
+      <if test="record.hour != null">
+        HOUR = #{record.hour,jdbcType=INTEGER},
+      </if>
+      <if test="record.minutes != null">
+        MINUTES = #{record.minutes,jdbcType=INTEGER},
+      </if>
+      <if test="record.weekday != null">
+        WEEKDAY = #{record.weekday,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayofmonth != null">
+        DAYOFMONTH = #{record.dayofmonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executionconfig != null">
+        executionConfig = #{record.executionconfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update d_timerscheduler
+    set ID_JOBTASK = #{record.idJobtask,jdbcType=BIGINT},
+      ID_JOB = #{record.idJob,jdbcType=BIGINT},
+      SLAVES = #{record.slaves,jdbcType=VARCHAR},
+      JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      ISREPEAT = #{record.isrepeat,jdbcType=CHAR},
+      SCHEDULERTYPE = #{record.schedulertype,jdbcType=INTEGER},
+      INTERVALMINUTES = #{record.intervalminutes,jdbcType=INTEGER},
+      HOUR = #{record.hour,jdbcType=INTEGER},
+      MINUTES = #{record.minutes,jdbcType=INTEGER},
+      WEEKDAY = #{record.weekday,jdbcType=INTEGER},
+      DAYOFMONTH = #{record.dayofmonth,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      executionConfig = #{record.executionconfig,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update d_timerscheduler
+    set ID_JOBTASK = #{record.idJobtask,jdbcType=BIGINT},
+      ID_JOB = #{record.idJob,jdbcType=BIGINT},
+      SLAVES = #{record.slaves,jdbcType=VARCHAR},
+      JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      ISREPEAT = #{record.isrepeat,jdbcType=CHAR},
+      SCHEDULERTYPE = #{record.schedulertype,jdbcType=INTEGER},
+      INTERVALMINUTES = #{record.intervalminutes,jdbcType=INTEGER},
+      HOUR = #{record.hour,jdbcType=INTEGER},
+      MINUTES = #{record.minutes,jdbcType=INTEGER},
+      WEEKDAY = #{record.weekday,jdbcType=INTEGER},
+      DAYOFMONTH = #{record.dayofmonth,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    update d_timerscheduler
+    <set>
+      <if test="idJob != null">
+        ID_JOB = #{idJob,jdbcType=BIGINT},
+      </if>
+      <if test="slaves != null">
+        SLAVES = #{slaves,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="isrepeat != null">
+        ISREPEAT = #{isrepeat,jdbcType=CHAR},
+      </if>
+      <if test="schedulertype != null">
+        SCHEDULERTYPE = #{schedulertype,jdbcType=INTEGER},
+      </if>
+      <if test="intervalminutes != null">
+        INTERVALMINUTES = #{intervalminutes,jdbcType=INTEGER},
+      </if>
+      <if test="hour != null">
+        HOUR = #{hour,jdbcType=INTEGER},
+      </if>
+      <if test="minutes != null">
+        MINUTES = #{minutes,jdbcType=INTEGER},
+      </if>
+      <if test="weekday != null">
+        WEEKDAY = #{weekday,jdbcType=INTEGER},
+      </if>
+      <if test="dayofmonth != null">
+        DAYOFMONTH = #{dayofmonth,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="executionconfig != null">
+        executionConfig = #{executionconfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_JOBTASK = #{idJobtask,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    update d_timerscheduler
+    set ID_JOB = #{idJob,jdbcType=BIGINT},
+      SLAVES = #{slaves,jdbcType=VARCHAR},
+      JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      ISREPEAT = #{isrepeat,jdbcType=CHAR},
+      SCHEDULERTYPE = #{schedulertype,jdbcType=INTEGER},
+      INTERVALMINUTES = #{intervalminutes,jdbcType=INTEGER},
+      HOUR = #{hour,jdbcType=INTEGER},
+      MINUTES = #{minutes,jdbcType=INTEGER},
+      WEEKDAY = #{weekday,jdbcType=INTEGER},
+      DAYOFMONTH = #{dayofmonth,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      executionConfig = #{executionconfig,jdbcType=LONGVARCHAR}
+    where ID_JOBTASK = #{idJobtask,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTimerscheduler">
+    update d_timerscheduler
+    set ID_JOB = #{idJob,jdbcType=BIGINT},
+      SLAVES = #{slaves,jdbcType=VARCHAR},
+      JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      ISREPEAT = #{isrepeat,jdbcType=CHAR},
+      SCHEDULERTYPE = #{schedulertype,jdbcType=INTEGER},
+      INTERVALMINUTES = #{intervalminutes,jdbcType=INTEGER},
+      HOUR = #{hour,jdbcType=INTEGER},
+      MINUTES = #{minutes,jdbcType=INTEGER},
+      WEEKDAY = #{weekday,jdbcType=INTEGER},
+      DAYOFMONTH = #{dayofmonth,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR}
+    where ID_JOBTASK = #{idJobtask,jdbcType=BIGINT}
+  </update>
+</mapper>

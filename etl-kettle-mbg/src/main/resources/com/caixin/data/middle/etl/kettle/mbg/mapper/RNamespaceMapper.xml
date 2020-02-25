@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RNamespaceMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    <id column="ID_NAMESPACE" jdbcType="BIGINT" property="idNamespace" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    <result column="NAME" jdbcType="LONGVARCHAR" property="name" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_NAMESPACE
+  </sql>
+  <sql id="Blob_Column_List">
+    NAME
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespaceExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_namespace
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespaceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_namespace
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_namespace
+    where ID_NAMESPACE = #{idNamespace,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_namespace
+    where ID_NAMESPACE = #{idNamespace,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespaceExample">
+    delete from r_namespace
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    insert into r_namespace (ID_NAMESPACE, NAME)
+    values (#{idNamespace,jdbcType=BIGINT}, #{name,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    insert into r_namespace
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idNamespace != null">
+        ID_NAMESPACE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idNamespace != null">
+        #{idNamespace,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespaceExample" resultType="java.lang.Long">
+    select count(*) from r_namespace
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_namespace
+    <set>
+      <if test="record.idNamespace != null">
+        ID_NAMESPACE = #{record.idNamespace,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_namespace
+    set ID_NAMESPACE = #{record.idNamespace,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_namespace
+    set ID_NAMESPACE = #{record.idNamespace,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    update r_namespace
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_NAMESPACE = #{idNamespace,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RNamespace">
+    update r_namespace
+    set NAME = #{name,jdbcType=LONGVARCHAR}
+    where ID_NAMESPACE = #{idNamespace,jdbcType=BIGINT}
+  </update>
+</mapper>

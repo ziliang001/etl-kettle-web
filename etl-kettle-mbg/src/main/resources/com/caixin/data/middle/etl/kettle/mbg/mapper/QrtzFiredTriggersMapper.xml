@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.QrtzFiredTriggersMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggers">
+    <id column="SCHED_NAME" jdbcType="VARCHAR" property="schedName" />
+    <id column="ENTRY_ID" jdbcType="VARCHAR" property="entryId" />
+    <result column="TRIGGER_NAME" jdbcType="VARCHAR" property="triggerName" />
+    <result column="TRIGGER_GROUP" jdbcType="VARCHAR" property="triggerGroup" />
+    <result column="INSTANCE_NAME" jdbcType="VARCHAR" property="instanceName" />
+    <result column="FIRED_TIME" jdbcType="BIGINT" property="firedTime" />
+    <result column="SCHED_TIME" jdbcType="BIGINT" property="schedTime" />
+    <result column="PRIORITY" jdbcType="INTEGER" property="priority" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="JOB_NAME" jdbcType="VARCHAR" property="jobName" />
+    <result column="JOB_GROUP" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="IS_NONCONCURRENT" jdbcType="VARCHAR" property="isNonconcurrent" />
+    <result column="REQUESTS_RECOVERY" jdbcType="VARCHAR" property="requestsRecovery" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHED_NAME, ENTRY_ID, TRIGGER_NAME, TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, SCHED_TIME, 
+    PRIORITY, STATE, JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, REQUESTS_RECOVERY
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_fired_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qrtz_fired_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from qrtz_fired_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggersExample">
+    delete from qrtz_fired_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggers">
+    insert into qrtz_fired_triggers (SCHED_NAME, ENTRY_ID, TRIGGER_NAME, 
+      TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, 
+      SCHED_TIME, PRIORITY, STATE, 
+      JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, 
+      REQUESTS_RECOVERY)
+    values (#{schedName,jdbcType=VARCHAR}, #{entryId,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, 
+      #{triggerGroup,jdbcType=VARCHAR}, #{instanceName,jdbcType=VARCHAR}, #{firedTime,jdbcType=BIGINT}, 
+      #{schedTime,jdbcType=BIGINT}, #{priority,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, #{isNonconcurrent,jdbcType=VARCHAR}, 
+      #{requestsRecovery,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggers">
+    insert into qrtz_fired_triggers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        SCHED_NAME,
+      </if>
+      <if test="entryId != null">
+        ENTRY_ID,
+      </if>
+      <if test="triggerName != null">
+        TRIGGER_NAME,
+      </if>
+      <if test="triggerGroup != null">
+        TRIGGER_GROUP,
+      </if>
+      <if test="instanceName != null">
+        INSTANCE_NAME,
+      </if>
+      <if test="firedTime != null">
+        FIRED_TIME,
+      </if>
+      <if test="schedTime != null">
+        SCHED_TIME,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="jobName != null">
+        JOB_NAME,
+      </if>
+      <if test="jobGroup != null">
+        JOB_GROUP,
+      </if>
+      <if test="isNonconcurrent != null">
+        IS_NONCONCURRENT,
+      </if>
+      <if test="requestsRecovery != null">
+        REQUESTS_RECOVERY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="entryId != null">
+        #{entryId,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerName != null">
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceName != null">
+        #{instanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="firedTime != null">
+        #{firedTime,jdbcType=BIGINT},
+      </if>
+      <if test="schedTime != null">
+        #{schedTime,jdbcType=BIGINT},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null">
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="isNonconcurrent != null">
+        #{isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsRecovery != null">
+        #{requestsRecovery,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggersExample" resultType="java.lang.Long">
+    select count(*) from qrtz_fired_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qrtz_fired_triggers
+    <set>
+      <if test="record.schedName != null">
+        SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entryId != null">
+        ENTRY_ID = #{record.entryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerName != null">
+        TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerGroup != null">
+        TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceName != null">
+        INSTANCE_NAME = #{record.instanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firedTime != null">
+        FIRED_TIME = #{record.firedTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.schedTime != null">
+        SCHED_TIME = #{record.schedTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.priority != null">
+        PRIORITY = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobName != null">
+        JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobGroup != null">
+        JOB_GROUP = #{record.jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNonconcurrent != null">
+        IS_NONCONCURRENT = #{record.isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestsRecovery != null">
+        REQUESTS_RECOVERY = #{record.requestsRecovery,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qrtz_fired_triggers
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      ENTRY_ID = #{record.entryId,jdbcType=VARCHAR},
+      TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      INSTANCE_NAME = #{record.instanceName,jdbcType=VARCHAR},
+      FIRED_TIME = #{record.firedTime,jdbcType=BIGINT},
+      SCHED_TIME = #{record.schedTime,jdbcType=BIGINT},
+      PRIORITY = #{record.priority,jdbcType=INTEGER},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      JOB_GROUP = #{record.jobGroup,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{record.isNonconcurrent,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{record.requestsRecovery,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggers">
+    update qrtz_fired_triggers
+    <set>
+      <if test="triggerName != null">
+        TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceName != null">
+        INSTANCE_NAME = #{instanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="firedTime != null">
+        FIRED_TIME = #{firedTime,jdbcType=BIGINT},
+      </if>
+      <if test="schedTime != null">
+        SCHED_TIME = #{schedTime,jdbcType=BIGINT},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null">
+        JOB_GROUP = #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="isNonconcurrent != null">
+        IS_NONCONCURRENT = #{isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsRecovery != null">
+        REQUESTS_RECOVERY = #{requestsRecovery,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzFiredTriggers">
+    update qrtz_fired_triggers
+    set TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR},
+      TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR},
+      INSTANCE_NAME = #{instanceName,jdbcType=VARCHAR},
+      FIRED_TIME = #{firedTime,jdbcType=BIGINT},
+      SCHED_TIME = #{schedTime,jdbcType=BIGINT},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=VARCHAR},
+      JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      JOB_GROUP = #{jobGroup,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{isNonconcurrent,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{requestsRecovery,jdbcType=VARCHAR}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and ENTRY_ID = #{entryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

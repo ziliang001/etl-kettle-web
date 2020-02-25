@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RElementMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    <id column="ID_ELEMENT" jdbcType="BIGINT" property="idElement" />
+    <result column="ID_ELEMENT_TYPE" jdbcType="INTEGER" property="idElementType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    <result column="NAME" jdbcType="LONGVARCHAR" property="name" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_ELEMENT, ID_ELEMENT_TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    NAME
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElementExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_element
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_element
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_element
+    where ID_ELEMENT = #{idElement,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_element
+    where ID_ELEMENT = #{idElement,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElementExample">
+    delete from r_element
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    insert into r_element (ID_ELEMENT, ID_ELEMENT_TYPE, NAME
+      )
+    values (#{idElement,jdbcType=BIGINT}, #{idElementType,jdbcType=INTEGER}, #{name,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    insert into r_element
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idElement != null">
+        ID_ELEMENT,
+      </if>
+      <if test="idElementType != null">
+        ID_ELEMENT_TYPE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idElement != null">
+        #{idElement,jdbcType=BIGINT},
+      </if>
+      <if test="idElementType != null">
+        #{idElementType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElementExample" resultType="java.lang.Long">
+    select count(*) from r_element
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_element
+    <set>
+      <if test="record.idElement != null">
+        ID_ELEMENT = #{record.idElement,jdbcType=BIGINT},
+      </if>
+      <if test="record.idElementType != null">
+        ID_ELEMENT_TYPE = #{record.idElementType,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_element
+    set ID_ELEMENT = #{record.idElement,jdbcType=BIGINT},
+      ID_ELEMENT_TYPE = #{record.idElementType,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_element
+    set ID_ELEMENT = #{record.idElement,jdbcType=BIGINT},
+      ID_ELEMENT_TYPE = #{record.idElementType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    update r_element
+    <set>
+      <if test="idElementType != null">
+        ID_ELEMENT_TYPE = #{idElementType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_ELEMENT = #{idElement,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    update r_element
+    set ID_ELEMENT_TYPE = #{idElementType,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=LONGVARCHAR}
+    where ID_ELEMENT = #{idElement,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RElement">
+    update r_element
+    set ID_ELEMENT_TYPE = #{idElementType,jdbcType=INTEGER}
+    where ID_ELEMENT = #{idElement,jdbcType=BIGINT}
+  </update>
+</mapper>

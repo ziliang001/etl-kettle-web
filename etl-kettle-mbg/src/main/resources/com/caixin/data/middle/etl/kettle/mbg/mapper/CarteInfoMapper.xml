@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.CarteInfoMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfo">
+    <id column="carte_record_id" jdbcType="BIGINT" property="carteRecordId" />
+    <result column="n_date" jdbcType="TIMESTAMP" property="nDate" />
+    <result column="slave_id" jdbcType="INTEGER" property="slaveId" />
+    <result column="thread_num" jdbcType="INTEGER" property="threadNum" />
+    <result column="job_num" jdbcType="INTEGER" property="jobNum" />
+    <result column="trans_num" jdbcType="INTEGER" property="transNum" />
+    <result column="free_mem" jdbcType="INTEGER" property="freeMem" />
+    <result column="total_mem" jdbcType="INTEGER" property="totalMem" />
+    <result column="used_mem_percent" jdbcType="VARCHAR" property="usedMemPercent" />
+    <result column="load_avg" jdbcType="REAL" property="loadAvg" />
+    <result column="finished_job_num" jdbcType="INTEGER" property="finishedJobNum" />
+    <result column="finished_trans_num" jdbcType="INTEGER" property="finishedTransNum" />
+    <result column="host_free_mem" jdbcType="VARCHAR" property="hostFreeMem" />
+    <result column="host_cpu_usage" jdbcType="VARCHAR" property="hostCpuUsage" />
+    <result column="host_free_disk" jdbcType="VARCHAR" property="hostFreeDisk" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    carte_record_id, n_date, slave_id, thread_num, job_num, trans_num, free_mem, total_mem, 
+    used_mem_percent, load_avg, finished_job_num, finished_trans_num, host_free_mem, 
+    host_cpu_usage, host_free_disk
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from carte_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carte_info
+    where carte_record_id = #{carteRecordId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from carte_info
+    where carte_record_id = #{carteRecordId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfoExample">
+    delete from carte_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfo">
+    insert into carte_info (carte_record_id, n_date, slave_id, 
+      thread_num, job_num, trans_num, 
+      free_mem, total_mem, used_mem_percent, 
+      load_avg, finished_job_num, finished_trans_num, 
+      host_free_mem, host_cpu_usage, host_free_disk
+      )
+    values (#{carteRecordId,jdbcType=BIGINT}, #{nDate,jdbcType=TIMESTAMP}, #{slaveId,jdbcType=INTEGER}, 
+      #{threadNum,jdbcType=INTEGER}, #{jobNum,jdbcType=INTEGER}, #{transNum,jdbcType=INTEGER}, 
+      #{freeMem,jdbcType=INTEGER}, #{totalMem,jdbcType=INTEGER}, #{usedMemPercent,jdbcType=VARCHAR}, 
+      #{loadAvg,jdbcType=REAL}, #{finishedJobNum,jdbcType=INTEGER}, #{finishedTransNum,jdbcType=INTEGER}, 
+      #{hostFreeMem,jdbcType=VARCHAR}, #{hostCpuUsage,jdbcType=VARCHAR}, #{hostFreeDisk,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfo">
+    insert into carte_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carteRecordId != null">
+        carte_record_id,
+      </if>
+      <if test="nDate != null">
+        n_date,
+      </if>
+      <if test="slaveId != null">
+        slave_id,
+      </if>
+      <if test="threadNum != null">
+        thread_num,
+      </if>
+      <if test="jobNum != null">
+        job_num,
+      </if>
+      <if test="transNum != null">
+        trans_num,
+      </if>
+      <if test="freeMem != null">
+        free_mem,
+      </if>
+      <if test="totalMem != null">
+        total_mem,
+      </if>
+      <if test="usedMemPercent != null">
+        used_mem_percent,
+      </if>
+      <if test="loadAvg != null">
+        load_avg,
+      </if>
+      <if test="finishedJobNum != null">
+        finished_job_num,
+      </if>
+      <if test="finishedTransNum != null">
+        finished_trans_num,
+      </if>
+      <if test="hostFreeMem != null">
+        host_free_mem,
+      </if>
+      <if test="hostCpuUsage != null">
+        host_cpu_usage,
+      </if>
+      <if test="hostFreeDisk != null">
+        host_free_disk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carteRecordId != null">
+        #{carteRecordId,jdbcType=BIGINT},
+      </if>
+      <if test="nDate != null">
+        #{nDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slaveId != null">
+        #{slaveId,jdbcType=INTEGER},
+      </if>
+      <if test="threadNum != null">
+        #{threadNum,jdbcType=INTEGER},
+      </if>
+      <if test="jobNum != null">
+        #{jobNum,jdbcType=INTEGER},
+      </if>
+      <if test="transNum != null">
+        #{transNum,jdbcType=INTEGER},
+      </if>
+      <if test="freeMem != null">
+        #{freeMem,jdbcType=INTEGER},
+      </if>
+      <if test="totalMem != null">
+        #{totalMem,jdbcType=INTEGER},
+      </if>
+      <if test="usedMemPercent != null">
+        #{usedMemPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="loadAvg != null">
+        #{loadAvg,jdbcType=REAL},
+      </if>
+      <if test="finishedJobNum != null">
+        #{finishedJobNum,jdbcType=INTEGER},
+      </if>
+      <if test="finishedTransNum != null">
+        #{finishedTransNum,jdbcType=INTEGER},
+      </if>
+      <if test="hostFreeMem != null">
+        #{hostFreeMem,jdbcType=VARCHAR},
+      </if>
+      <if test="hostCpuUsage != null">
+        #{hostCpuUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="hostFreeDisk != null">
+        #{hostFreeDisk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfoExample" resultType="java.lang.Long">
+    select count(*) from carte_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update carte_info
+    <set>
+      <if test="record.carteRecordId != null">
+        carte_record_id = #{record.carteRecordId,jdbcType=BIGINT},
+      </if>
+      <if test="record.nDate != null">
+        n_date = #{record.nDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.slaveId != null">
+        slave_id = #{record.slaveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.threadNum != null">
+        thread_num = #{record.threadNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobNum != null">
+        job_num = #{record.jobNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.transNum != null">
+        trans_num = #{record.transNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.freeMem != null">
+        free_mem = #{record.freeMem,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalMem != null">
+        total_mem = #{record.totalMem,jdbcType=INTEGER},
+      </if>
+      <if test="record.usedMemPercent != null">
+        used_mem_percent = #{record.usedMemPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loadAvg != null">
+        load_avg = #{record.loadAvg,jdbcType=REAL},
+      </if>
+      <if test="record.finishedJobNum != null">
+        finished_job_num = #{record.finishedJobNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishedTransNum != null">
+        finished_trans_num = #{record.finishedTransNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.hostFreeMem != null">
+        host_free_mem = #{record.hostFreeMem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostCpuUsage != null">
+        host_cpu_usage = #{record.hostCpuUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostFreeDisk != null">
+        host_free_disk = #{record.hostFreeDisk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update carte_info
+    set carte_record_id = #{record.carteRecordId,jdbcType=BIGINT},
+      n_date = #{record.nDate,jdbcType=TIMESTAMP},
+      slave_id = #{record.slaveId,jdbcType=INTEGER},
+      thread_num = #{record.threadNum,jdbcType=INTEGER},
+      job_num = #{record.jobNum,jdbcType=INTEGER},
+      trans_num = #{record.transNum,jdbcType=INTEGER},
+      free_mem = #{record.freeMem,jdbcType=INTEGER},
+      total_mem = #{record.totalMem,jdbcType=INTEGER},
+      used_mem_percent = #{record.usedMemPercent,jdbcType=VARCHAR},
+      load_avg = #{record.loadAvg,jdbcType=REAL},
+      finished_job_num = #{record.finishedJobNum,jdbcType=INTEGER},
+      finished_trans_num = #{record.finishedTransNum,jdbcType=INTEGER},
+      host_free_mem = #{record.hostFreeMem,jdbcType=VARCHAR},
+      host_cpu_usage = #{record.hostCpuUsage,jdbcType=VARCHAR},
+      host_free_disk = #{record.hostFreeDisk,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfo">
+    update carte_info
+    <set>
+      <if test="nDate != null">
+        n_date = #{nDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slaveId != null">
+        slave_id = #{slaveId,jdbcType=INTEGER},
+      </if>
+      <if test="threadNum != null">
+        thread_num = #{threadNum,jdbcType=INTEGER},
+      </if>
+      <if test="jobNum != null">
+        job_num = #{jobNum,jdbcType=INTEGER},
+      </if>
+      <if test="transNum != null">
+        trans_num = #{transNum,jdbcType=INTEGER},
+      </if>
+      <if test="freeMem != null">
+        free_mem = #{freeMem,jdbcType=INTEGER},
+      </if>
+      <if test="totalMem != null">
+        total_mem = #{totalMem,jdbcType=INTEGER},
+      </if>
+      <if test="usedMemPercent != null">
+        used_mem_percent = #{usedMemPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="loadAvg != null">
+        load_avg = #{loadAvg,jdbcType=REAL},
+      </if>
+      <if test="finishedJobNum != null">
+        finished_job_num = #{finishedJobNum,jdbcType=INTEGER},
+      </if>
+      <if test="finishedTransNum != null">
+        finished_trans_num = #{finishedTransNum,jdbcType=INTEGER},
+      </if>
+      <if test="hostFreeMem != null">
+        host_free_mem = #{hostFreeMem,jdbcType=VARCHAR},
+      </if>
+      <if test="hostCpuUsage != null">
+        host_cpu_usage = #{hostCpuUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="hostFreeDisk != null">
+        host_free_disk = #{hostFreeDisk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where carte_record_id = #{carteRecordId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.CarteInfo">
+    update carte_info
+    set n_date = #{nDate,jdbcType=TIMESTAMP},
+      slave_id = #{slaveId,jdbcType=INTEGER},
+      thread_num = #{threadNum,jdbcType=INTEGER},
+      job_num = #{jobNum,jdbcType=INTEGER},
+      trans_num = #{transNum,jdbcType=INTEGER},
+      free_mem = #{freeMem,jdbcType=INTEGER},
+      total_mem = #{totalMem,jdbcType=INTEGER},
+      used_mem_percent = #{usedMemPercent,jdbcType=VARCHAR},
+      load_avg = #{loadAvg,jdbcType=REAL},
+      finished_job_num = #{finishedJobNum,jdbcType=INTEGER},
+      finished_trans_num = #{finishedTransNum,jdbcType=INTEGER},
+      host_free_mem = #{hostFreeMem,jdbcType=VARCHAR},
+      host_cpu_usage = #{hostCpuUsage,jdbcType=VARCHAR},
+      host_free_disk = #{hostFreeDisk,jdbcType=VARCHAR}
+    where carte_record_id = #{carteRecordId,jdbcType=BIGINT}
+  </update>
+</mapper>

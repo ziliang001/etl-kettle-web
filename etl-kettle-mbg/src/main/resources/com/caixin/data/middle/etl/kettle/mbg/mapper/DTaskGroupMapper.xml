@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.DTaskGroupMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroup">
+    <id column="ID_TASK_GROUP" jdbcType="BIGINT" property="idTaskGroup" />
+    <result column="TASK_GROUP_NAME" jdbcType="VARCHAR" property="taskGroupName" />
+    <result column="TASK_DESC" jdbcType="VARCHAR" property="taskDesc" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_TASK_GROUP, TASK_GROUP_NAME, TASK_DESC, CREATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_task_group
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from d_task_group
+    where ID_TASK_GROUP = #{idTaskGroup,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from d_task_group
+    where ID_TASK_GROUP = #{idTaskGroup,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupExample">
+    delete from d_task_group
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroup">
+    insert into d_task_group (ID_TASK_GROUP, TASK_GROUP_NAME, TASK_DESC, 
+      CREATE_DATE)
+    values (#{idTaskGroup,jdbcType=BIGINT}, #{taskGroupName,jdbcType=VARCHAR}, #{taskDesc,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroup">
+    insert into d_task_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idTaskGroup != null">
+        ID_TASK_GROUP,
+      </if>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME,
+      </if>
+      <if test="taskDesc != null">
+        TASK_DESC,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idTaskGroup != null">
+        #{idTaskGroup,jdbcType=BIGINT},
+      </if>
+      <if test="taskGroupName != null">
+        #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null">
+        #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroupExample" resultType="java.lang.Long">
+    select count(*) from d_task_group
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update d_task_group
+    <set>
+      <if test="record.idTaskGroup != null">
+        ID_TASK_GROUP = #{record.idTaskGroup,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskGroupName != null">
+        TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskDesc != null">
+        TASK_DESC = #{record.taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update d_task_group
+    set ID_TASK_GROUP = #{record.idTaskGroup,jdbcType=BIGINT},
+      TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      TASK_DESC = #{record.taskDesc,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroup">
+    update d_task_group
+    <set>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null">
+        TASK_DESC = #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID_TASK_GROUP = #{idTaskGroup,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DTaskGroup">
+    update d_task_group
+    set TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      TASK_DESC = #{taskDesc,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where ID_TASK_GROUP = #{idTaskGroup,jdbcType=BIGINT}
+  </update>
+</mapper>

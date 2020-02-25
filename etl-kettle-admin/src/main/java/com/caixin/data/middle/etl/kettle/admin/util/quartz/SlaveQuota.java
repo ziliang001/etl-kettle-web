@@ -1,0 +1,72 @@
+/**
+ * Copyright (C), 2019-2020, **有限公司
+ * FileName: SlaveQuota
+ * Author:   zhuzj29042
+ * Date:     2020/2/14 15:21::39
+ * Description:
+ * History:
+ * <author>          <time>          <version>          <desc>
+ * 作者姓名           修改时间           版本号              描述
+ */
+package com.caixin.data.middle.etl.kettle.admin.util.quartz;
+
+import com.caixin.data.middle.etl.kettle.admin.util.commn.StringDateUtil;
+import com.caixin.data.middle.etl.kettle.admin.util.task.CarteStatusVo;
+import com.caixin.data.middle.etl.kettle.admin.util.task.KettleEncr;
+import com.caixin.data.middle.etl.kettle.admin.entity.CarteInfoEntity;
+import com.caixin.data.middle.etl.kettle.admin.entity.SlaveEntity;
+import com.caixin.data.middle.etl.kettle.admin.util.CarteClient;
+import org.apache.ibatis.session.SqlSession;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 〈一句话功能简述〉<br> 
+ *
+ *
+ * @author zhuzhongji
+ * @create 2020/2/14 15:21:39
+ * @since 1.0.0
+ */
+public class SlaveQuota {
+
+    //每隔N分钟采集节点指标的具体业务方法(已在配置文件中整合Spring会自动调用)
+    public static void quotaSlaveInfoRepeat() throws Exception {
+        SqlSession session = CarteClient.sessionFactory.openSession();
+        List<CarteInfoEntity> carteInfoList = new ArrayList<CarteInfoEntity>();
+        // 采集所有节点的信息
+        List<SlaveEntity> slaves = session.selectList("com.caixin.data.middle.etl.kettle.admin.dao.SlaveDao.getAllSlave", "");
+        String nDate = StringDateUtil.dateToString(new java.util.Date(), "yyyy-MM-dd HH:mm:ss");
+
+        CarteStatusVo vo = null;
+        CarteInfoEntity carteInfo = null;
+        String carteStatus;
+        for (SlaveEntity slave : slaves) {
+            slave.setPassword(KettleEncr.decryptPasswd(slave.getPassword()));
+            //System.err.println("sb:" + slave.getPassword());
+            CarteClient cc = new CarteClient(slave);
+
+            carteStatus = cc.getStatusOrNull();
+            if (carteStatus == null) continue;
+            vo = CarteStatusVo.parseXml(carteStatus);
+            //组装节点指标对象
+            String hostInfo = cc.getSlaveHostInfo();
+            String memFree = hostInfo.split("\\$")[0];
+            String diskFree = hostInfo.split("\\$")[1];
+            String cpuUsage = hostInfo.split("\\$")[2];
+            carteInfo = new CarteInfoEntity(StringDateUtil.stringToDate(nDate, "yyyy-MM-dd HH:mm:ss"), cc.getSlave().getSlaveId(), vo.getThreadCount(), vo.getRunningJobNum(),
+                    vo.getRunningTransNum(), (int) vo.getFreeMem(), (int) vo.getTotalMem(), vo.getFreeMemPercent(),
+                    (float) vo.getLoadAvg(), null, null, memFree, cpuUsage, diskFree);
+            carteInfoList.add(carteInfo);
+        }
+        //把采集到的所有节点的当前指标信息更新到数据表中
+        Integer result = 0;
+        for (CarteInfoEntity carteInfoEntity : carteInfoList) {
+            result += session.insert("com.caixin.data.middle.etl.kettle.admin.dao.CarteInfoDao.insertCarteInfo", carteInfoEntity);
+        }
+        session.commit();
+        System.out.println("定时采集节点指标信息成功!共更新→" + result + "条数据");
+        session.close();
+    }
+}

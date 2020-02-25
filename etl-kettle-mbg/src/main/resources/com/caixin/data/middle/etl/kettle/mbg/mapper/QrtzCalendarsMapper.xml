@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.QrtzCalendarsMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    <id column="SCHED_NAME" jdbcType="VARCHAR" property="schedName" />
+    <id column="CALENDAR_NAME" jdbcType="VARCHAR" property="calendarName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    <result column="CALENDAR" jdbcType="LONGVARBINARY" property="calendar" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHED_NAME, CALENDAR_NAME
+  </sql>
+  <sql id="Blob_Column_List">
+    CALENDAR
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendarsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qrtz_calendars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendarsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_calendars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qrtz_calendars
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and CALENDAR_NAME = #{calendarName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from qrtz_calendars
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and CALENDAR_NAME = #{calendarName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendarsExample">
+    delete from qrtz_calendars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    insert into qrtz_calendars (SCHED_NAME, CALENDAR_NAME, CALENDAR
+      )
+    values (#{schedName,jdbcType=VARCHAR}, #{calendarName,jdbcType=VARCHAR}, #{calendar,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    insert into qrtz_calendars
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        SCHED_NAME,
+      </if>
+      <if test="calendarName != null">
+        CALENDAR_NAME,
+      </if>
+      <if test="calendar != null">
+        CALENDAR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarName != null">
+        #{calendarName,jdbcType=VARCHAR},
+      </if>
+      <if test="calendar != null">
+        #{calendar,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendarsExample" resultType="java.lang.Long">
+    select count(*) from qrtz_calendars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qrtz_calendars
+    <set>
+      <if test="record.schedName != null">
+        SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calendarName != null">
+        CALENDAR_NAME = #{record.calendarName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calendar != null">
+        CALENDAR = #{record.calendar,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update qrtz_calendars
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      CALENDAR_NAME = #{record.calendarName,jdbcType=VARCHAR},
+      CALENDAR = #{record.calendar,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qrtz_calendars
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      CALENDAR_NAME = #{record.calendarName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    update qrtz_calendars
+    <set>
+      <if test="calendar != null">
+        CALENDAR = #{calendar,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and CALENDAR_NAME = #{calendarName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzCalendars">
+    update qrtz_calendars
+    set CALENDAR = #{calendar,jdbcType=LONGVARBINARY}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and CALENDAR_NAME = #{calendarName,jdbcType=VARCHAR}
+  </update>
+</mapper>

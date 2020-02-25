@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.DUserGroupTasksRelationMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelation">
+    <id column="ID_USERGROUP_TASKS_RELATION" jdbcType="INTEGER" property="idUsergroupTasksRelation" />
+    <result column="USER_GROUP_NAME" jdbcType="VARCHAR" property="userGroupName" />
+    <result column="TASK_GROUP_NAME" jdbcType="VARCHAR" property="taskGroupName" />
+    <result column="TYPE" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_USERGROUP_TASKS_RELATION, USER_GROUP_NAME, TASK_GROUP_NAME, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_user_group_tasks_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from d_user_group_tasks_relation
+    where ID_USERGROUP_TASKS_RELATION = #{idUsergroupTasksRelation,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from d_user_group_tasks_relation
+    where ID_USERGROUP_TASKS_RELATION = #{idUsergroupTasksRelation,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelationExample">
+    delete from d_user_group_tasks_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelation">
+    insert into d_user_group_tasks_relation (ID_USERGROUP_TASKS_RELATION, USER_GROUP_NAME, 
+      TASK_GROUP_NAME, TYPE)
+    values (#{idUsergroupTasksRelation,jdbcType=INTEGER}, #{userGroupName,jdbcType=VARCHAR}, 
+      #{taskGroupName,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelation">
+    insert into d_user_group_tasks_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idUsergroupTasksRelation != null">
+        ID_USERGROUP_TASKS_RELATION,
+      </if>
+      <if test="userGroupName != null">
+        USER_GROUP_NAME,
+      </if>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idUsergroupTasksRelation != null">
+        #{idUsergroupTasksRelation,jdbcType=INTEGER},
+      </if>
+      <if test="userGroupName != null">
+        #{userGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroupName != null">
+        #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelationExample" resultType="java.lang.Long">
+    select count(*) from d_user_group_tasks_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update d_user_group_tasks_relation
+    <set>
+      <if test="record.idUsergroupTasksRelation != null">
+        ID_USERGROUP_TASKS_RELATION = #{record.idUsergroupTasksRelation,jdbcType=INTEGER},
+      </if>
+      <if test="record.userGroupName != null">
+        USER_GROUP_NAME = #{record.userGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskGroupName != null">
+        TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update d_user_group_tasks_relation
+    set ID_USERGROUP_TASKS_RELATION = #{record.idUsergroupTasksRelation,jdbcType=INTEGER},
+      USER_GROUP_NAME = #{record.userGroupName,jdbcType=VARCHAR},
+      TASK_GROUP_NAME = #{record.taskGroupName,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelation">
+    update d_user_group_tasks_relation
+    <set>
+      <if test="userGroupName != null">
+        USER_GROUP_NAME = #{userGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroupName != null">
+        TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ID_USERGROUP_TASKS_RELATION = #{idUsergroupTasksRelation,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.DUserGroupTasksRelation">
+    update d_user_group_tasks_relation
+    set USER_GROUP_NAME = #{userGroupName,jdbcType=VARCHAR},
+      TASK_GROUP_NAME = #{taskGroupName,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=TINYINT}
+    where ID_USERGROUP_TASKS_RELATION = #{idUsergroupTasksRelation,jdbcType=INTEGER}
+  </update>
+</mapper>

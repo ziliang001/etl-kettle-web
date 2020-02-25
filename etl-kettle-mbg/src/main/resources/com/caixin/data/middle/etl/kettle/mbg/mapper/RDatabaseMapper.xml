@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RDatabaseMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    <id column="ID_DATABASE" jdbcType="BIGINT" property="idDatabase" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ID_DATABASE_TYPE" jdbcType="INTEGER" property="idDatabaseType" />
+    <result column="ID_DATABASE_CONTYPE" jdbcType="INTEGER" property="idDatabaseContype" />
+    <result column="HOST_NAME" jdbcType="VARCHAR" property="hostName" />
+    <result column="PORT" jdbcType="INTEGER" property="port" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SERVERNAME" jdbcType="VARCHAR" property="servername" />
+    <result column="DATA_TBS" jdbcType="VARCHAR" property="dataTbs" />
+    <result column="INDEX_TBS" jdbcType="VARCHAR" property="indexTbs" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    <result column="DATABASE_NAME" jdbcType="LONGVARCHAR" property="databaseName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_DATABASE, NAME, ID_DATABASE_TYPE, ID_DATABASE_CONTYPE, HOST_NAME, PORT, USERNAME, 
+    PASSWORD, SERVERNAME, DATA_TBS, INDEX_TBS
+  </sql>
+  <sql id="Blob_Column_List">
+    DATABASE_NAME
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_database
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_database
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_database
+    where ID_DATABASE = #{idDatabase,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_database
+    where ID_DATABASE = #{idDatabase,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseExample">
+    delete from r_database
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    insert into r_database (ID_DATABASE, NAME, ID_DATABASE_TYPE, 
+      ID_DATABASE_CONTYPE, HOST_NAME, PORT, 
+      USERNAME, PASSWORD, SERVERNAME, 
+      DATA_TBS, INDEX_TBS, DATABASE_NAME
+      )
+    values (#{idDatabase,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{idDatabaseType,jdbcType=INTEGER}, 
+      #{idDatabaseContype,jdbcType=INTEGER}, #{hostName,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{servername,jdbcType=VARCHAR}, 
+      #{dataTbs,jdbcType=VARCHAR}, #{indexTbs,jdbcType=VARCHAR}, #{databaseName,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    insert into r_database
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idDatabase != null">
+        ID_DATABASE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="idDatabaseType != null">
+        ID_DATABASE_TYPE,
+      </if>
+      <if test="idDatabaseContype != null">
+        ID_DATABASE_CONTYPE,
+      </if>
+      <if test="hostName != null">
+        HOST_NAME,
+      </if>
+      <if test="port != null">
+        PORT,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="servername != null">
+        SERVERNAME,
+      </if>
+      <if test="dataTbs != null">
+        DATA_TBS,
+      </if>
+      <if test="indexTbs != null">
+        INDEX_TBS,
+      </if>
+      <if test="databaseName != null">
+        DATABASE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idDatabase != null">
+        #{idDatabase,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idDatabaseType != null">
+        #{idDatabaseType,jdbcType=INTEGER},
+      </if>
+      <if test="idDatabaseContype != null">
+        #{idDatabaseContype,jdbcType=INTEGER},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="servername != null">
+        #{servername,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTbs != null">
+        #{dataTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="indexTbs != null">
+        #{indexTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseName != null">
+        #{databaseName,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseExample" resultType="java.lang.Long">
+    select count(*) from r_database
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_database
+    <set>
+      <if test="record.idDatabase != null">
+        ID_DATABASE = #{record.idDatabase,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idDatabaseType != null">
+        ID_DATABASE_TYPE = #{record.idDatabaseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idDatabaseContype != null">
+        ID_DATABASE_CONTYPE = #{record.idDatabaseContype,jdbcType=INTEGER},
+      </if>
+      <if test="record.hostName != null">
+        HOST_NAME = #{record.hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null">
+        PORT = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servername != null">
+        SERVERNAME = #{record.servername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataTbs != null">
+        DATA_TBS = #{record.dataTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indexTbs != null">
+        INDEX_TBS = #{record.indexTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databaseName != null">
+        DATABASE_NAME = #{record.databaseName,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_database
+    set ID_DATABASE = #{record.idDatabase,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ID_DATABASE_TYPE = #{record.idDatabaseType,jdbcType=INTEGER},
+      ID_DATABASE_CONTYPE = #{record.idDatabaseContype,jdbcType=INTEGER},
+      HOST_NAME = #{record.hostName,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=INTEGER},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      SERVERNAME = #{record.servername,jdbcType=VARCHAR},
+      DATA_TBS = #{record.dataTbs,jdbcType=VARCHAR},
+      INDEX_TBS = #{record.indexTbs,jdbcType=VARCHAR},
+      DATABASE_NAME = #{record.databaseName,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_database
+    set ID_DATABASE = #{record.idDatabase,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ID_DATABASE_TYPE = #{record.idDatabaseType,jdbcType=INTEGER},
+      ID_DATABASE_CONTYPE = #{record.idDatabaseContype,jdbcType=INTEGER},
+      HOST_NAME = #{record.hostName,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=INTEGER},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      SERVERNAME = #{record.servername,jdbcType=VARCHAR},
+      DATA_TBS = #{record.dataTbs,jdbcType=VARCHAR},
+      INDEX_TBS = #{record.indexTbs,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    update r_database
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idDatabaseType != null">
+        ID_DATABASE_TYPE = #{idDatabaseType,jdbcType=INTEGER},
+      </if>
+      <if test="idDatabaseContype != null">
+        ID_DATABASE_CONTYPE = #{idDatabaseContype,jdbcType=INTEGER},
+      </if>
+      <if test="hostName != null">
+        HOST_NAME = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        PORT = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="servername != null">
+        SERVERNAME = #{servername,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTbs != null">
+        DATA_TBS = #{dataTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="indexTbs != null">
+        INDEX_TBS = #{indexTbs,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseName != null">
+        DATABASE_NAME = #{databaseName,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_DATABASE = #{idDatabase,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    update r_database
+    set NAME = #{name,jdbcType=VARCHAR},
+      ID_DATABASE_TYPE = #{idDatabaseType,jdbcType=INTEGER},
+      ID_DATABASE_CONTYPE = #{idDatabaseContype,jdbcType=INTEGER},
+      HOST_NAME = #{hostName,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=INTEGER},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SERVERNAME = #{servername,jdbcType=VARCHAR},
+      DATA_TBS = #{dataTbs,jdbcType=VARCHAR},
+      INDEX_TBS = #{indexTbs,jdbcType=VARCHAR},
+      DATABASE_NAME = #{databaseName,jdbcType=LONGVARCHAR}
+    where ID_DATABASE = #{idDatabase,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabase">
+    update r_database
+    set NAME = #{name,jdbcType=VARCHAR},
+      ID_DATABASE_TYPE = #{idDatabaseType,jdbcType=INTEGER},
+      ID_DATABASE_CONTYPE = #{idDatabaseContype,jdbcType=INTEGER},
+      HOST_NAME = #{hostName,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=INTEGER},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SERVERNAME = #{servername,jdbcType=VARCHAR},
+      DATA_TBS = #{dataTbs,jdbcType=VARCHAR},
+      INDEX_TBS = #{indexTbs,jdbcType=VARCHAR}
+    where ID_DATABASE = #{idDatabase,jdbcType=BIGINT}
+  </update>
+</mapper>

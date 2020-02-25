@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RJobentryMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    <id column="ID_JOBENTRY" jdbcType="BIGINT" property="idJobentry" />
+    <result column="ID_JOB" jdbcType="INTEGER" property="idJob" />
+    <result column="ID_JOBENTRY_TYPE" jdbcType="INTEGER" property="idJobentryType" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_JOBENTRY, ID_JOB, ID_JOBENTRY_TYPE, NAME
+  </sql>
+  <sql id="Blob_Column_List">
+    DESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentryExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_jobentry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_jobentry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_jobentry
+    where ID_JOBENTRY = #{idJobentry,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_jobentry
+    where ID_JOBENTRY = #{idJobentry,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentryExample">
+    delete from r_jobentry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    insert into r_jobentry (ID_JOBENTRY, ID_JOB, ID_JOBENTRY_TYPE, 
+      NAME, DESCRIPTION)
+    values (#{idJobentry,jdbcType=BIGINT}, #{idJob,jdbcType=INTEGER}, #{idJobentryType,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    insert into r_jobentry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idJobentry != null">
+        ID_JOBENTRY,
+      </if>
+      <if test="idJob != null">
+        ID_JOB,
+      </if>
+      <if test="idJobentryType != null">
+        ID_JOBENTRY_TYPE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idJobentry != null">
+        #{idJobentry,jdbcType=BIGINT},
+      </if>
+      <if test="idJob != null">
+        #{idJob,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryType != null">
+        #{idJobentryType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentryExample" resultType="java.lang.Long">
+    select count(*) from r_jobentry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_jobentry
+    <set>
+      <if test="record.idJobentry != null">
+        ID_JOBENTRY = #{record.idJobentry,jdbcType=BIGINT},
+      </if>
+      <if test="record.idJob != null">
+        ID_JOB = #{record.idJob,jdbcType=INTEGER},
+      </if>
+      <if test="record.idJobentryType != null">
+        ID_JOBENTRY_TYPE = #{record.idJobentryType,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_jobentry
+    set ID_JOBENTRY = #{record.idJobentry,jdbcType=BIGINT},
+      ID_JOB = #{record.idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_TYPE = #{record.idJobentryType,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_jobentry
+    set ID_JOBENTRY = #{record.idJobentry,jdbcType=BIGINT},
+      ID_JOB = #{record.idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_TYPE = #{record.idJobentryType,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    update r_jobentry
+    <set>
+      <if test="idJob != null">
+        ID_JOB = #{idJob,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryType != null">
+        ID_JOBENTRY_TYPE = #{idJobentryType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_JOBENTRY = #{idJobentry,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    update r_jobentry
+    set ID_JOB = #{idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_TYPE = #{idJobentryType,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR}
+    where ID_JOBENTRY = #{idJobentry,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobentry">
+    update r_jobentry
+    set ID_JOB = #{idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_TYPE = #{idJobentryType,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR}
+    where ID_JOBENTRY = #{idJobentry,jdbcType=BIGINT}
+  </update>
+</mapper>

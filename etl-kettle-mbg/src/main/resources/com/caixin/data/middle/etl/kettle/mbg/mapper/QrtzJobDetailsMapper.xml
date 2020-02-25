@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.QrtzJobDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    <id column="SCHED_NAME" jdbcType="VARCHAR" property="schedName" />
+    <id column="JOB_NAME" jdbcType="VARCHAR" property="jobName" />
+    <id column="JOB_GROUP" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="JOB_CLASS_NAME" jdbcType="VARCHAR" property="jobClassName" />
+    <result column="IS_DURABLE" jdbcType="VARCHAR" property="isDurable" />
+    <result column="IS_NONCONCURRENT" jdbcType="VARCHAR" property="isNonconcurrent" />
+    <result column="IS_UPDATE_DATA" jdbcType="VARCHAR" property="isUpdateData" />
+    <result column="REQUESTS_RECOVERY" jdbcType="VARCHAR" property="requestsRecovery" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    <result column="JOB_DATA" jdbcType="LONGVARBINARY" property="jobData" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHED_NAME, JOB_NAME, JOB_GROUP, DESCRIPTION, JOB_CLASS_NAME, IS_DURABLE, IS_NONCONCURRENT, 
+    IS_UPDATE_DATA, REQUESTS_RECOVERY
+  </sql>
+  <sql id="Blob_Column_List">
+    JOB_DATA
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetailsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qrtz_job_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_job_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qrtz_job_details
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and JOB_NAME = #{jobName,jdbcType=VARCHAR}
+      and JOB_GROUP = #{jobGroup,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from qrtz_job_details
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and JOB_NAME = #{jobName,jdbcType=VARCHAR}
+      and JOB_GROUP = #{jobGroup,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetailsExample">
+    delete from qrtz_job_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    insert into qrtz_job_details (SCHED_NAME, JOB_NAME, JOB_GROUP, 
+      DESCRIPTION, JOB_CLASS_NAME, IS_DURABLE, 
+      IS_NONCONCURRENT, IS_UPDATE_DATA, REQUESTS_RECOVERY, 
+      JOB_DATA)
+    values (#{schedName,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{jobClassName,jdbcType=VARCHAR}, #{isDurable,jdbcType=VARCHAR}, 
+      #{isNonconcurrent,jdbcType=VARCHAR}, #{isUpdateData,jdbcType=VARCHAR}, #{requestsRecovery,jdbcType=VARCHAR}, 
+      #{jobData,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    insert into qrtz_job_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        SCHED_NAME,
+      </if>
+      <if test="jobName != null">
+        JOB_NAME,
+      </if>
+      <if test="jobGroup != null">
+        JOB_GROUP,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="jobClassName != null">
+        JOB_CLASS_NAME,
+      </if>
+      <if test="isDurable != null">
+        IS_DURABLE,
+      </if>
+      <if test="isNonconcurrent != null">
+        IS_NONCONCURRENT,
+      </if>
+      <if test="isUpdateData != null">
+        IS_UPDATE_DATA,
+      </if>
+      <if test="requestsRecovery != null">
+        REQUESTS_RECOVERY,
+      </if>
+      <if test="jobData != null">
+        JOB_DATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null">
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClassName != null">
+        #{jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDurable != null">
+        #{isDurable,jdbcType=VARCHAR},
+      </if>
+      <if test="isNonconcurrent != null">
+        #{isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUpdateData != null">
+        #{isUpdateData,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsRecovery != null">
+        #{requestsRecovery,jdbcType=VARCHAR},
+      </if>
+      <if test="jobData != null">
+        #{jobData,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetailsExample" resultType="java.lang.Long">
+    select count(*) from qrtz_job_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qrtz_job_details
+    <set>
+      <if test="record.schedName != null">
+        SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobName != null">
+        JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobGroup != null">
+        JOB_GROUP = #{record.jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobClassName != null">
+        JOB_CLASS_NAME = #{record.jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDurable != null">
+        IS_DURABLE = #{record.isDurable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNonconcurrent != null">
+        IS_NONCONCURRENT = #{record.isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUpdateData != null">
+        IS_UPDATE_DATA = #{record.isUpdateData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestsRecovery != null">
+        REQUESTS_RECOVERY = #{record.requestsRecovery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobData != null">
+        JOB_DATA = #{record.jobData,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update qrtz_job_details
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      JOB_GROUP = #{record.jobGroup,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      JOB_CLASS_NAME = #{record.jobClassName,jdbcType=VARCHAR},
+      IS_DURABLE = #{record.isDurable,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{record.isNonconcurrent,jdbcType=VARCHAR},
+      IS_UPDATE_DATA = #{record.isUpdateData,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{record.requestsRecovery,jdbcType=VARCHAR},
+      JOB_DATA = #{record.jobData,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qrtz_job_details
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
+      JOB_GROUP = #{record.jobGroup,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      JOB_CLASS_NAME = #{record.jobClassName,jdbcType=VARCHAR},
+      IS_DURABLE = #{record.isDurable,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{record.isNonconcurrent,jdbcType=VARCHAR},
+      IS_UPDATE_DATA = #{record.isUpdateData,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{record.requestsRecovery,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    update qrtz_job_details
+    <set>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClassName != null">
+        JOB_CLASS_NAME = #{jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDurable != null">
+        IS_DURABLE = #{isDurable,jdbcType=VARCHAR},
+      </if>
+      <if test="isNonconcurrent != null">
+        IS_NONCONCURRENT = #{isNonconcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUpdateData != null">
+        IS_UPDATE_DATA = #{isUpdateData,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsRecovery != null">
+        REQUESTS_RECOVERY = #{requestsRecovery,jdbcType=VARCHAR},
+      </if>
+      <if test="jobData != null">
+        JOB_DATA = #{jobData,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and JOB_NAME = #{jobName,jdbcType=VARCHAR}
+      and JOB_GROUP = #{jobGroup,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    update qrtz_job_details
+    set DESCRIPTION = #{description,jdbcType=VARCHAR},
+      JOB_CLASS_NAME = #{jobClassName,jdbcType=VARCHAR},
+      IS_DURABLE = #{isDurable,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{isNonconcurrent,jdbcType=VARCHAR},
+      IS_UPDATE_DATA = #{isUpdateData,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{requestsRecovery,jdbcType=VARCHAR},
+      JOB_DATA = #{jobData,jdbcType=LONGVARBINARY}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and JOB_NAME = #{jobName,jdbcType=VARCHAR}
+      and JOB_GROUP = #{jobGroup,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzJobDetails">
+    update qrtz_job_details
+    set DESCRIPTION = #{description,jdbcType=VARCHAR},
+      JOB_CLASS_NAME = #{jobClassName,jdbcType=VARCHAR},
+      IS_DURABLE = #{isDurable,jdbcType=VARCHAR},
+      IS_NONCONCURRENT = #{isNonconcurrent,jdbcType=VARCHAR},
+      IS_UPDATE_DATA = #{isUpdateData,jdbcType=VARCHAR},
+      REQUESTS_RECOVERY = #{requestsRecovery,jdbcType=VARCHAR}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and JOB_NAME = #{jobName,jdbcType=VARCHAR}
+      and JOB_GROUP = #{jobGroup,jdbcType=VARCHAR}
+  </update>
+</mapper>

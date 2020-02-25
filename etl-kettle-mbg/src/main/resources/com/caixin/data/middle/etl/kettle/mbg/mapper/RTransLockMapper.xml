@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RTransLockMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    <id column="ID_TRANS_LOCK" jdbcType="BIGINT" property="idTransLock" />
+    <result column="ID_TRANSFORMATION" jdbcType="INTEGER" property="idTransformation" />
+    <result column="ID_USER" jdbcType="INTEGER" property="idUser" />
+    <result column="LOCK_DATE" jdbcType="TIMESTAMP" property="lockDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    <result column="LOCK_MESSAGE" jdbcType="LONGVARCHAR" property="lockMessage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_TRANS_LOCK, ID_TRANSFORMATION, ID_USER, LOCK_DATE
+  </sql>
+  <sql id="Blob_Column_List">
+    LOCK_MESSAGE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLockExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_trans_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLockExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_trans_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_trans_lock
+    where ID_TRANS_LOCK = #{idTransLock,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_trans_lock
+    where ID_TRANS_LOCK = #{idTransLock,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLockExample">
+    delete from r_trans_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    insert into r_trans_lock (ID_TRANS_LOCK, ID_TRANSFORMATION, ID_USER, 
+      LOCK_DATE, LOCK_MESSAGE)
+    values (#{idTransLock,jdbcType=BIGINT}, #{idTransformation,jdbcType=INTEGER}, #{idUser,jdbcType=INTEGER}, 
+      #{lockDate,jdbcType=TIMESTAMP}, #{lockMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    insert into r_trans_lock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idTransLock != null">
+        ID_TRANS_LOCK,
+      </if>
+      <if test="idTransformation != null">
+        ID_TRANSFORMATION,
+      </if>
+      <if test="idUser != null">
+        ID_USER,
+      </if>
+      <if test="lockDate != null">
+        LOCK_DATE,
+      </if>
+      <if test="lockMessage != null">
+        LOCK_MESSAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idTransLock != null">
+        #{idTransLock,jdbcType=BIGINT},
+      </if>
+      <if test="idTransformation != null">
+        #{idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="idUser != null">
+        #{idUser,jdbcType=INTEGER},
+      </if>
+      <if test="lockDate != null">
+        #{lockDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockMessage != null">
+        #{lockMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLockExample" resultType="java.lang.Long">
+    select count(*) from r_trans_lock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_trans_lock
+    <set>
+      <if test="record.idTransLock != null">
+        ID_TRANS_LOCK = #{record.idTransLock,jdbcType=BIGINT},
+      </if>
+      <if test="record.idTransformation != null">
+        ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="record.idUser != null">
+        ID_USER = #{record.idUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockDate != null">
+        LOCK_DATE = #{record.lockDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lockMessage != null">
+        LOCK_MESSAGE = #{record.lockMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_trans_lock
+    set ID_TRANS_LOCK = #{record.idTransLock,jdbcType=BIGINT},
+      ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      ID_USER = #{record.idUser,jdbcType=INTEGER},
+      LOCK_DATE = #{record.lockDate,jdbcType=TIMESTAMP},
+      LOCK_MESSAGE = #{record.lockMessage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_trans_lock
+    set ID_TRANS_LOCK = #{record.idTransLock,jdbcType=BIGINT},
+      ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      ID_USER = #{record.idUser,jdbcType=INTEGER},
+      LOCK_DATE = #{record.lockDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    update r_trans_lock
+    <set>
+      <if test="idTransformation != null">
+        ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="idUser != null">
+        ID_USER = #{idUser,jdbcType=INTEGER},
+      </if>
+      <if test="lockDate != null">
+        LOCK_DATE = #{lockDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockMessage != null">
+        LOCK_MESSAGE = #{lockMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_TRANS_LOCK = #{idTransLock,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    update r_trans_lock
+    set ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      ID_USER = #{idUser,jdbcType=INTEGER},
+      LOCK_DATE = #{lockDate,jdbcType=TIMESTAMP},
+      LOCK_MESSAGE = #{lockMessage,jdbcType=LONGVARCHAR}
+    where ID_TRANS_LOCK = #{idTransLock,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransLock">
+    update r_trans_lock
+    set ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      ID_USER = #{idUser,jdbcType=INTEGER},
+      LOCK_DATE = #{lockDate,jdbcType=TIMESTAMP}
+    where ID_TRANS_LOCK = #{idTransLock,jdbcType=BIGINT}
+  </update>
+</mapper>

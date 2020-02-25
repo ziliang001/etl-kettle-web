@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.QrtzSimpropTriggersMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggers">
+    <id column="SCHED_NAME" jdbcType="VARCHAR" property="schedName" />
+    <id column="TRIGGER_NAME" jdbcType="VARCHAR" property="triggerName" />
+    <id column="TRIGGER_GROUP" jdbcType="VARCHAR" property="triggerGroup" />
+    <result column="STR_PROP_1" jdbcType="VARCHAR" property="strProp1" />
+    <result column="STR_PROP_2" jdbcType="VARCHAR" property="strProp2" />
+    <result column="STR_PROP_3" jdbcType="VARCHAR" property="strProp3" />
+    <result column="INT_PROP_1" jdbcType="INTEGER" property="intProp1" />
+    <result column="INT_PROP_2" jdbcType="INTEGER" property="intProp2" />
+    <result column="LONG_PROP_1" jdbcType="BIGINT" property="longProp1" />
+    <result column="LONG_PROP_2" jdbcType="BIGINT" property="longProp2" />
+    <result column="DEC_PROP_1" jdbcType="DECIMAL" property="decProp1" />
+    <result column="DEC_PROP_2" jdbcType="DECIMAL" property="decProp2" />
+    <result column="BOOL_PROP_1" jdbcType="VARCHAR" property="boolProp1" />
+    <result column="BOOL_PROP_2" jdbcType="VARCHAR" property="boolProp2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP, STR_PROP_1, STR_PROP_2, STR_PROP_3, INT_PROP_1, 
+    INT_PROP_2, LONG_PROP_1, LONG_PROP_2, DEC_PROP_1, DEC_PROP_2, BOOL_PROP_1, BOOL_PROP_2
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_simprop_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qrtz_simprop_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from qrtz_simprop_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggersExample">
+    delete from qrtz_simprop_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggers">
+    insert into qrtz_simprop_triggers (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP, 
+      STR_PROP_1, STR_PROP_2, STR_PROP_3, 
+      INT_PROP_1, INT_PROP_2, LONG_PROP_1, 
+      LONG_PROP_2, DEC_PROP_1, DEC_PROP_2, 
+      BOOL_PROP_1, BOOL_PROP_2)
+    values (#{schedName,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, #{triggerGroup,jdbcType=VARCHAR}, 
+      #{strProp1,jdbcType=VARCHAR}, #{strProp2,jdbcType=VARCHAR}, #{strProp3,jdbcType=VARCHAR}, 
+      #{intProp1,jdbcType=INTEGER}, #{intProp2,jdbcType=INTEGER}, #{longProp1,jdbcType=BIGINT}, 
+      #{longProp2,jdbcType=BIGINT}, #{decProp1,jdbcType=DECIMAL}, #{decProp2,jdbcType=DECIMAL}, 
+      #{boolProp1,jdbcType=VARCHAR}, #{boolProp2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggers">
+    insert into qrtz_simprop_triggers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        SCHED_NAME,
+      </if>
+      <if test="triggerName != null">
+        TRIGGER_NAME,
+      </if>
+      <if test="triggerGroup != null">
+        TRIGGER_GROUP,
+      </if>
+      <if test="strProp1 != null">
+        STR_PROP_1,
+      </if>
+      <if test="strProp2 != null">
+        STR_PROP_2,
+      </if>
+      <if test="strProp3 != null">
+        STR_PROP_3,
+      </if>
+      <if test="intProp1 != null">
+        INT_PROP_1,
+      </if>
+      <if test="intProp2 != null">
+        INT_PROP_2,
+      </if>
+      <if test="longProp1 != null">
+        LONG_PROP_1,
+      </if>
+      <if test="longProp2 != null">
+        LONG_PROP_2,
+      </if>
+      <if test="decProp1 != null">
+        DEC_PROP_1,
+      </if>
+      <if test="decProp2 != null">
+        DEC_PROP_2,
+      </if>
+      <if test="boolProp1 != null">
+        BOOL_PROP_1,
+      </if>
+      <if test="boolProp2 != null">
+        BOOL_PROP_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerName != null">
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="strProp1 != null">
+        #{strProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="strProp2 != null">
+        #{strProp2,jdbcType=VARCHAR},
+      </if>
+      <if test="strProp3 != null">
+        #{strProp3,jdbcType=VARCHAR},
+      </if>
+      <if test="intProp1 != null">
+        #{intProp1,jdbcType=INTEGER},
+      </if>
+      <if test="intProp2 != null">
+        #{intProp2,jdbcType=INTEGER},
+      </if>
+      <if test="longProp1 != null">
+        #{longProp1,jdbcType=BIGINT},
+      </if>
+      <if test="longProp2 != null">
+        #{longProp2,jdbcType=BIGINT},
+      </if>
+      <if test="decProp1 != null">
+        #{decProp1,jdbcType=DECIMAL},
+      </if>
+      <if test="decProp2 != null">
+        #{decProp2,jdbcType=DECIMAL},
+      </if>
+      <if test="boolProp1 != null">
+        #{boolProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="boolProp2 != null">
+        #{boolProp2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggersExample" resultType="java.lang.Long">
+    select count(*) from qrtz_simprop_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qrtz_simprop_triggers
+    <set>
+      <if test="record.schedName != null">
+        SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerName != null">
+        TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerGroup != null">
+        TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strProp1 != null">
+        STR_PROP_1 = #{record.strProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strProp2 != null">
+        STR_PROP_2 = #{record.strProp2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strProp3 != null">
+        STR_PROP_3 = #{record.strProp3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intProp1 != null">
+        INT_PROP_1 = #{record.intProp1,jdbcType=INTEGER},
+      </if>
+      <if test="record.intProp2 != null">
+        INT_PROP_2 = #{record.intProp2,jdbcType=INTEGER},
+      </if>
+      <if test="record.longProp1 != null">
+        LONG_PROP_1 = #{record.longProp1,jdbcType=BIGINT},
+      </if>
+      <if test="record.longProp2 != null">
+        LONG_PROP_2 = #{record.longProp2,jdbcType=BIGINT},
+      </if>
+      <if test="record.decProp1 != null">
+        DEC_PROP_1 = #{record.decProp1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.decProp2 != null">
+        DEC_PROP_2 = #{record.decProp2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.boolProp1 != null">
+        BOOL_PROP_1 = #{record.boolProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boolProp2 != null">
+        BOOL_PROP_2 = #{record.boolProp2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qrtz_simprop_triggers
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      STR_PROP_1 = #{record.strProp1,jdbcType=VARCHAR},
+      STR_PROP_2 = #{record.strProp2,jdbcType=VARCHAR},
+      STR_PROP_3 = #{record.strProp3,jdbcType=VARCHAR},
+      INT_PROP_1 = #{record.intProp1,jdbcType=INTEGER},
+      INT_PROP_2 = #{record.intProp2,jdbcType=INTEGER},
+      LONG_PROP_1 = #{record.longProp1,jdbcType=BIGINT},
+      LONG_PROP_2 = #{record.longProp2,jdbcType=BIGINT},
+      DEC_PROP_1 = #{record.decProp1,jdbcType=DECIMAL},
+      DEC_PROP_2 = #{record.decProp2,jdbcType=DECIMAL},
+      BOOL_PROP_1 = #{record.boolProp1,jdbcType=VARCHAR},
+      BOOL_PROP_2 = #{record.boolProp2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggers">
+    update qrtz_simprop_triggers
+    <set>
+      <if test="strProp1 != null">
+        STR_PROP_1 = #{strProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="strProp2 != null">
+        STR_PROP_2 = #{strProp2,jdbcType=VARCHAR},
+      </if>
+      <if test="strProp3 != null">
+        STR_PROP_3 = #{strProp3,jdbcType=VARCHAR},
+      </if>
+      <if test="intProp1 != null">
+        INT_PROP_1 = #{intProp1,jdbcType=INTEGER},
+      </if>
+      <if test="intProp2 != null">
+        INT_PROP_2 = #{intProp2,jdbcType=INTEGER},
+      </if>
+      <if test="longProp1 != null">
+        LONG_PROP_1 = #{longProp1,jdbcType=BIGINT},
+      </if>
+      <if test="longProp2 != null">
+        LONG_PROP_2 = #{longProp2,jdbcType=BIGINT},
+      </if>
+      <if test="decProp1 != null">
+        DEC_PROP_1 = #{decProp1,jdbcType=DECIMAL},
+      </if>
+      <if test="decProp2 != null">
+        DEC_PROP_2 = #{decProp2,jdbcType=DECIMAL},
+      </if>
+      <if test="boolProp1 != null">
+        BOOL_PROP_1 = #{boolProp1,jdbcType=VARCHAR},
+      </if>
+      <if test="boolProp2 != null">
+        BOOL_PROP_2 = #{boolProp2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpropTriggers">
+    update qrtz_simprop_triggers
+    set STR_PROP_1 = #{strProp1,jdbcType=VARCHAR},
+      STR_PROP_2 = #{strProp2,jdbcType=VARCHAR},
+      STR_PROP_3 = #{strProp3,jdbcType=VARCHAR},
+      INT_PROP_1 = #{intProp1,jdbcType=INTEGER},
+      INT_PROP_2 = #{intProp2,jdbcType=INTEGER},
+      LONG_PROP_1 = #{longProp1,jdbcType=BIGINT},
+      LONG_PROP_2 = #{longProp2,jdbcType=BIGINT},
+      DEC_PROP_1 = #{decProp1,jdbcType=DECIMAL},
+      DEC_PROP_2 = #{decProp2,jdbcType=DECIMAL},
+      BOOL_PROP_1 = #{boolProp1,jdbcType=VARCHAR},
+      BOOL_PROP_2 = #{boolProp2,jdbcType=VARCHAR}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </update>
+</mapper>

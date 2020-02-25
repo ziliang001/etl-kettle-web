@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.QrtzSimpleTriggersMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggers">
+    <id column="SCHED_NAME" jdbcType="VARCHAR" property="schedName" />
+    <id column="TRIGGER_NAME" jdbcType="VARCHAR" property="triggerName" />
+    <id column="TRIGGER_GROUP" jdbcType="VARCHAR" property="triggerGroup" />
+    <result column="REPEAT_COUNT" jdbcType="BIGINT" property="repeatCount" />
+    <result column="REPEAT_INTERVAL" jdbcType="BIGINT" property="repeatInterval" />
+    <result column="TIMES_TRIGGERED" jdbcType="BIGINT" property="timesTriggered" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP, REPEAT_COUNT, REPEAT_INTERVAL, TIMES_TRIGGERED
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qrtz_simple_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qrtz_simple_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from qrtz_simple_triggers
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggersExample">
+    delete from qrtz_simple_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggers">
+    insert into qrtz_simple_triggers (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP, 
+      REPEAT_COUNT, REPEAT_INTERVAL, TIMES_TRIGGERED
+      )
+    values (#{schedName,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, #{triggerGroup,jdbcType=VARCHAR}, 
+      #{repeatCount,jdbcType=BIGINT}, #{repeatInterval,jdbcType=BIGINT}, #{timesTriggered,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggers">
+    insert into qrtz_simple_triggers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        SCHED_NAME,
+      </if>
+      <if test="triggerName != null">
+        TRIGGER_NAME,
+      </if>
+      <if test="triggerGroup != null">
+        TRIGGER_GROUP,
+      </if>
+      <if test="repeatCount != null">
+        REPEAT_COUNT,
+      </if>
+      <if test="repeatInterval != null">
+        REPEAT_INTERVAL,
+      </if>
+      <if test="timesTriggered != null">
+        TIMES_TRIGGERED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schedName != null">
+        #{schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerName != null">
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatCount != null">
+        #{repeatCount,jdbcType=BIGINT},
+      </if>
+      <if test="repeatInterval != null">
+        #{repeatInterval,jdbcType=BIGINT},
+      </if>
+      <if test="timesTriggered != null">
+        #{timesTriggered,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggersExample" resultType="java.lang.Long">
+    select count(*) from qrtz_simple_triggers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update qrtz_simple_triggers
+    <set>
+      <if test="record.schedName != null">
+        SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerName != null">
+        TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerGroup != null">
+        TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repeatCount != null">
+        REPEAT_COUNT = #{record.repeatCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.repeatInterval != null">
+        REPEAT_INTERVAL = #{record.repeatInterval,jdbcType=BIGINT},
+      </if>
+      <if test="record.timesTriggered != null">
+        TIMES_TRIGGERED = #{record.timesTriggered,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update qrtz_simple_triggers
+    set SCHED_NAME = #{record.schedName,jdbcType=VARCHAR},
+      TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      TRIGGER_GROUP = #{record.triggerGroup,jdbcType=VARCHAR},
+      REPEAT_COUNT = #{record.repeatCount,jdbcType=BIGINT},
+      REPEAT_INTERVAL = #{record.repeatInterval,jdbcType=BIGINT},
+      TIMES_TRIGGERED = #{record.timesTriggered,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggers">
+    update qrtz_simple_triggers
+    <set>
+      <if test="repeatCount != null">
+        REPEAT_COUNT = #{repeatCount,jdbcType=BIGINT},
+      </if>
+      <if test="repeatInterval != null">
+        REPEAT_INTERVAL = #{repeatInterval,jdbcType=BIGINT},
+      </if>
+      <if test="timesTriggered != null">
+        TIMES_TRIGGERED = #{timesTriggered,jdbcType=BIGINT},
+      </if>
+    </set>
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.QrtzSimpleTriggers">
+    update qrtz_simple_triggers
+    set REPEAT_COUNT = #{repeatCount,jdbcType=BIGINT},
+      REPEAT_INTERVAL = #{repeatInterval,jdbcType=BIGINT},
+      TIMES_TRIGGERED = #{timesTriggered,jdbcType=BIGINT}
+    where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
+      and TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR}
+      and TRIGGER_GROUP = #{triggerGroup,jdbcType=VARCHAR}
+  </update>
+</mapper>

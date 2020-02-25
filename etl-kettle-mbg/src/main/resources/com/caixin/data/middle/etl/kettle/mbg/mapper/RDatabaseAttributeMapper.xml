@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RDatabaseAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    <id column="ID_DATABASE_ATTRIBUTE" jdbcType="BIGINT" property="idDatabaseAttribute" />
+    <result column="ID_DATABASE" jdbcType="INTEGER" property="idDatabase" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    <result column="VALUE_STR" jdbcType="LONGVARCHAR" property="valueStr" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_DATABASE_ATTRIBUTE, ID_DATABASE, CODE
+  </sql>
+  <sql id="Blob_Column_List">
+    VALUE_STR
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttributeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_database_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttributeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_database_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_database_attribute
+    where ID_DATABASE_ATTRIBUTE = #{idDatabaseAttribute,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_database_attribute
+    where ID_DATABASE_ATTRIBUTE = #{idDatabaseAttribute,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttributeExample">
+    delete from r_database_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    insert into r_database_attribute (ID_DATABASE_ATTRIBUTE, ID_DATABASE, CODE, 
+      VALUE_STR)
+    values (#{idDatabaseAttribute,jdbcType=BIGINT}, #{idDatabase,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{valueStr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    insert into r_database_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idDatabaseAttribute != null">
+        ID_DATABASE_ATTRIBUTE,
+      </if>
+      <if test="idDatabase != null">
+        ID_DATABASE,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="valueStr != null">
+        VALUE_STR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idDatabaseAttribute != null">
+        #{idDatabaseAttribute,jdbcType=BIGINT},
+      </if>
+      <if test="idDatabase != null">
+        #{idDatabase,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="valueStr != null">
+        #{valueStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttributeExample" resultType="java.lang.Long">
+    select count(*) from r_database_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_database_attribute
+    <set>
+      <if test="record.idDatabaseAttribute != null">
+        ID_DATABASE_ATTRIBUTE = #{record.idDatabaseAttribute,jdbcType=BIGINT},
+      </if>
+      <if test="record.idDatabase != null">
+        ID_DATABASE = #{record.idDatabase,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valueStr != null">
+        VALUE_STR = #{record.valueStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_database_attribute
+    set ID_DATABASE_ATTRIBUTE = #{record.idDatabaseAttribute,jdbcType=BIGINT},
+      ID_DATABASE = #{record.idDatabase,jdbcType=INTEGER},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      VALUE_STR = #{record.valueStr,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_database_attribute
+    set ID_DATABASE_ATTRIBUTE = #{record.idDatabaseAttribute,jdbcType=BIGINT},
+      ID_DATABASE = #{record.idDatabase,jdbcType=INTEGER},
+      CODE = #{record.code,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    update r_database_attribute
+    <set>
+      <if test="idDatabase != null">
+        ID_DATABASE = #{idDatabase,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="valueStr != null">
+        VALUE_STR = #{valueStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_DATABASE_ATTRIBUTE = #{idDatabaseAttribute,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    update r_database_attribute
+    set ID_DATABASE = #{idDatabase,jdbcType=INTEGER},
+      CODE = #{code,jdbcType=VARCHAR},
+      VALUE_STR = #{valueStr,jdbcType=LONGVARCHAR}
+    where ID_DATABASE_ATTRIBUTE = #{idDatabaseAttribute,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RDatabaseAttribute">
+    update r_database_attribute
+    set ID_DATABASE = #{idDatabase,jdbcType=INTEGER},
+      CODE = #{code,jdbcType=VARCHAR}
+    where ID_DATABASE_ATTRIBUTE = #{idDatabaseAttribute,jdbcType=BIGINT}
+  </update>
+</mapper>

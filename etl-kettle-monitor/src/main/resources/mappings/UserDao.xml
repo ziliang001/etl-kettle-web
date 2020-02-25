@@ -1,0 +1,122 @@
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.caixin.data.middle.etl.kettle.monitor.dao.UserDao">-->
+<!--    &lt;!&ndash;根据登录名查找用户&ndash;&gt;-->
+<!--    <select id="getUserbyName" resultType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--        select-->
+<!--            r.DESCRIPTION as description,-->
+<!--            r.ID_USER as userId,-->
+<!--            r.LOGIN as login,-->
+<!--            r.`PASSWORD` as password,-->
+<!--            r.`NAME` as name,-->
+<!--            r.ENABLED as enabled-->
+<!--        from r_user r where r.`login` = #{name}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;分页形式获取用户&ndash;&gt;-->
+<!--    <select id="getUsersLimit" resultType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--        select-->
+<!--              r.DESCRIPTION as description,-->
+<!--              r.ID_USER as userId,-->
+<!--              r.LOGIN as login,-->
+<!--              r.`PASSWORD` as password,-->
+<!--              r.`NAME` as name,-->
+<!--              r.ENABLED as enabled,-->
+<!--              d.USER_GROUP_NAME as belongToUserGroup,-->
+<!--              d.SLAVE_PERMISSION_TYPE as slavePower,-->
+<!--              d.TASK_PERMISSION_TYPE as taskGroupPower,-->
+<!--              d.USER_TYPE as userType,-->
+<!--              d.CREATE_DATE as createDate-->
+<!--        from r_user r INNER JOIN d_user_group_member_attribute d-->
+<!--        ON r.LOGIN=d.USER_NAME-->
+<!--        WHERE 1=1-->
+<!--        <if test='param3!=null and param3!=""'>-->
+<!--            AND r.LOGIN IN-->
+<!--              (select a.USER_NAME from-->
+<!--              d_user_group_member_attribute a where a.USER_GROUP_NAME=#{2})-->
+<!--        </if>-->
+<!--        <if test='param4!=null and param4!=""'>-->
+<!--            AND r.LOGIN LIKE concat('%',#{3},'%')-->
+<!--        </if>-->
+<!--        <if test='param5!=null'>-->
+<!--            AND d.USER_TYPE=#{4}-->
+<!--        </if>-->
+<!--        ORDER BY d.CREATE_DATE DESC limit #{0},#{1}-->
+<!--    </select>-->
+
+<!--    <select id="getUsers" resultType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--        select-->
+<!--        r.DESCRIPTION as description,-->
+<!--        r.ID_USER as userId,-->
+<!--        r.LOGIN as login,-->
+<!--        r.`PASSWORD` as password,-->
+<!--        r.`NAME` as name,-->
+<!--        r.ENABLED as enabled,-->
+<!--        d.USER_GROUP_NAME as belongToUserGroup,-->
+<!--        d.SLAVE_PERMISSION_TYPE as slavePower,-->
+<!--        d.TASK_PERMISSION_TYPE as taskGroupPower,-->
+<!--        d.USER_TYPE as userType,-->
+<!--        d.CREATE_DATE as createDate-->
+<!--        from r_user r INNER JOIN d_user_group_member_attribute d-->
+<!--        ON r.LOGIN=d.USER_NAME-->
+<!--        WHERE 1=1-->
+<!--        <if test='_parameter!=null and _parameter!=""'>-->
+<!--            AND r.LOGIN IN-->
+<!--            (select a.USER_NAME from-->
+<!--            d_user_group_member_attribute a where a.USER_GROUP_NAME=#{userGroupName})-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;获取用户的总数量&ndash;&gt;-->
+<!--    <select id="getUserCount" resultType="java.lang.Integer">-->
+<!--        select count(0)-->
+<!--        from r_user r-->
+<!--        WHERE 1=1-->
+<!--        <if test='_parameter!=null and _parameter!=""'>-->
+<!--            AND r.LOGIN IN-->
+<!--            (select a.USER_NAME from-->
+<!--            d_user_group_member_attribute a where a.USER_GROUP_NAME=#{userGroupName})-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;修改用户&ndash;&gt;-->
+<!--    <update id="updateUser" parameterType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--      update r_user-->
+<!--        <trim prefix="set" suffixOverrides=",">-->
+<!--            <if test='password!=null and password!=""'>-->
+<!--                r_user.`PASSWORD`=#{password},-->
+<!--            </if>-->
+<!--            <if test='description!=null and description!=""'>-->
+<!--                r_user.DESCRIPTION=#{description}-->
+<!--            </if>-->
+<!--        </trim>-->
+<!--      where r_user.ID_USER=#{userId}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;删除用户&ndash;&gt;-->
+<!--    <delete id="deleteUser" parameterType="java.lang.Integer">-->
+<!--      delete from r_user where ID_USER=#{userId}-->
+<!--    </delete>-->
+
+<!--    &lt;!&ndash;添加用户&ndash;&gt;-->
+<!--    <insert id="addUser" parameterType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--      insert r_user (ID_USER,LOGIN,PASSWORD,NAME,DESCRIPTION,ENABLED)-->
+<!--      VALUES (#{userId},#{login},#{password},#{name},#{description},#{enabled});-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash;获取所有用户&ndash;&gt;-->
+<!--    <select id="getAllUsers" resultType="com.caixin.data.middle.etl.kettle.monitor.entity.UserEntity">-->
+<!--        select-->
+<!--        r.DESCRIPTION as description,-->
+<!--        r.ID_USER as userId,-->
+<!--        r.LOGIN as login,-->
+<!--        r.`PASSWORD` as password,-->
+<!--        r.`NAME` as name,-->
+<!--        r.ENABLED as enabled-->
+<!--        from r_user r-->
+<!--    </select>-->
+
+<!--    <select id="selectMaxId" resultType="java.lang.Integer">-->
+<!--        select MAX(r.ID_USER) from r_user r-->
+<!--    </select>-->
+
+<!--</mapper>-->

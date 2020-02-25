@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RClusterMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RCluster">
+    <id column="ID_CLUSTER" jdbcType="BIGINT" property="idCluster" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="BASE_PORT" jdbcType="VARCHAR" property="basePort" />
+    <result column="SOCKETS_BUFFER_SIZE" jdbcType="VARCHAR" property="socketsBufferSize" />
+    <result column="SOCKETS_FLUSH_INTERVAL" jdbcType="VARCHAR" property="socketsFlushInterval" />
+    <result column="SOCKETS_COMPRESSED" jdbcType="CHAR" property="socketsCompressed" />
+    <result column="DYNAMIC_CLUSTER" jdbcType="CHAR" property="dynamicCluster" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_CLUSTER, NAME, BASE_PORT, SOCKETS_BUFFER_SIZE, SOCKETS_FLUSH_INTERVAL, SOCKETS_COMPRESSED, 
+    DYNAMIC_CLUSTER
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RClusterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_cluster
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from r_cluster
+    where ID_CLUSTER = #{idCluster,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_cluster
+    where ID_CLUSTER = #{idCluster,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RClusterExample">
+    delete from r_cluster
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RCluster">
+    insert into r_cluster (ID_CLUSTER, NAME, BASE_PORT, 
+      SOCKETS_BUFFER_SIZE, SOCKETS_FLUSH_INTERVAL, 
+      SOCKETS_COMPRESSED, DYNAMIC_CLUSTER)
+    values (#{idCluster,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{basePort,jdbcType=VARCHAR}, 
+      #{socketsBufferSize,jdbcType=VARCHAR}, #{socketsFlushInterval,jdbcType=VARCHAR}, 
+      #{socketsCompressed,jdbcType=CHAR}, #{dynamicCluster,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RCluster">
+    insert into r_cluster
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idCluster != null">
+        ID_CLUSTER,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="basePort != null">
+        BASE_PORT,
+      </if>
+      <if test="socketsBufferSize != null">
+        SOCKETS_BUFFER_SIZE,
+      </if>
+      <if test="socketsFlushInterval != null">
+        SOCKETS_FLUSH_INTERVAL,
+      </if>
+      <if test="socketsCompressed != null">
+        SOCKETS_COMPRESSED,
+      </if>
+      <if test="dynamicCluster != null">
+        DYNAMIC_CLUSTER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idCluster != null">
+        #{idCluster,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="basePort != null">
+        #{basePort,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsBufferSize != null">
+        #{socketsBufferSize,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsFlushInterval != null">
+        #{socketsFlushInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsCompressed != null">
+        #{socketsCompressed,jdbcType=CHAR},
+      </if>
+      <if test="dynamicCluster != null">
+        #{dynamicCluster,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RClusterExample" resultType="java.lang.Long">
+    select count(*) from r_cluster
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_cluster
+    <set>
+      <if test="record.idCluster != null">
+        ID_CLUSTER = #{record.idCluster,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basePort != null">
+        BASE_PORT = #{record.basePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socketsBufferSize != null">
+        SOCKETS_BUFFER_SIZE = #{record.socketsBufferSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socketsFlushInterval != null">
+        SOCKETS_FLUSH_INTERVAL = #{record.socketsFlushInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socketsCompressed != null">
+        SOCKETS_COMPRESSED = #{record.socketsCompressed,jdbcType=CHAR},
+      </if>
+      <if test="record.dynamicCluster != null">
+        DYNAMIC_CLUSTER = #{record.dynamicCluster,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_cluster
+    set ID_CLUSTER = #{record.idCluster,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      BASE_PORT = #{record.basePort,jdbcType=VARCHAR},
+      SOCKETS_BUFFER_SIZE = #{record.socketsBufferSize,jdbcType=VARCHAR},
+      SOCKETS_FLUSH_INTERVAL = #{record.socketsFlushInterval,jdbcType=VARCHAR},
+      SOCKETS_COMPRESSED = #{record.socketsCompressed,jdbcType=CHAR},
+      DYNAMIC_CLUSTER = #{record.dynamicCluster,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RCluster">
+    update r_cluster
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="basePort != null">
+        BASE_PORT = #{basePort,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsBufferSize != null">
+        SOCKETS_BUFFER_SIZE = #{socketsBufferSize,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsFlushInterval != null">
+        SOCKETS_FLUSH_INTERVAL = #{socketsFlushInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="socketsCompressed != null">
+        SOCKETS_COMPRESSED = #{socketsCompressed,jdbcType=CHAR},
+      </if>
+      <if test="dynamicCluster != null">
+        DYNAMIC_CLUSTER = #{dynamicCluster,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID_CLUSTER = #{idCluster,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RCluster">
+    update r_cluster
+    set NAME = #{name,jdbcType=VARCHAR},
+      BASE_PORT = #{basePort,jdbcType=VARCHAR},
+      SOCKETS_BUFFER_SIZE = #{socketsBufferSize,jdbcType=VARCHAR},
+      SOCKETS_FLUSH_INTERVAL = #{socketsFlushInterval,jdbcType=VARCHAR},
+      SOCKETS_COMPRESSED = #{socketsCompressed,jdbcType=CHAR},
+      DYNAMIC_CLUSTER = #{dynamicCluster,jdbcType=CHAR}
+    where ID_CLUSTER = #{idCluster,jdbcType=BIGINT}
+  </update>
+</mapper>

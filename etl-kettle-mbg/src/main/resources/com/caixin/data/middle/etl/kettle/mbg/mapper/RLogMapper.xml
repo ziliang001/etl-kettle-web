@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RLogMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RLog">
+    <id column="ID_LOG" jdbcType="BIGINT" property="idLog" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ID_LOGLEVEL" jdbcType="INTEGER" property="idLoglevel" />
+    <result column="LOGTYPE" jdbcType="VARCHAR" property="logtype" />
+    <result column="FILENAME" jdbcType="VARCHAR" property="filename" />
+    <result column="FILEEXTENTION" jdbcType="VARCHAR" property="fileextention" />
+    <result column="ADD_DATE" jdbcType="CHAR" property="addDate" />
+    <result column="ADD_TIME" jdbcType="CHAR" property="addTime" />
+    <result column="ID_DATABASE_LOG" jdbcType="INTEGER" property="idDatabaseLog" />
+    <result column="TABLE_NAME_LOG" jdbcType="VARCHAR" property="tableNameLog" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_LOG, NAME, ID_LOGLEVEL, LOGTYPE, FILENAME, FILEEXTENTION, ADD_DATE, ADD_TIME, 
+    ID_DATABASE_LOG, TABLE_NAME_LOG
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from r_log
+    where ID_LOG = #{idLog,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_log
+    where ID_LOG = #{idLog,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLogExample">
+    delete from r_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLog">
+    insert into r_log (ID_LOG, NAME, ID_LOGLEVEL, 
+      LOGTYPE, FILENAME, FILEEXTENTION, 
+      ADD_DATE, ADD_TIME, ID_DATABASE_LOG, 
+      TABLE_NAME_LOG)
+    values (#{idLog,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{idLoglevel,jdbcType=INTEGER}, 
+      #{logtype,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{fileextention,jdbcType=VARCHAR}, 
+      #{addDate,jdbcType=CHAR}, #{addTime,jdbcType=CHAR}, #{idDatabaseLog,jdbcType=INTEGER}, 
+      #{tableNameLog,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLog">
+    insert into r_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idLog != null">
+        ID_LOG,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="idLoglevel != null">
+        ID_LOGLEVEL,
+      </if>
+      <if test="logtype != null">
+        LOGTYPE,
+      </if>
+      <if test="filename != null">
+        FILENAME,
+      </if>
+      <if test="fileextention != null">
+        FILEEXTENTION,
+      </if>
+      <if test="addDate != null">
+        ADD_DATE,
+      </if>
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="idDatabaseLog != null">
+        ID_DATABASE_LOG,
+      </if>
+      <if test="tableNameLog != null">
+        TABLE_NAME_LOG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idLog != null">
+        #{idLog,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idLoglevel != null">
+        #{idLoglevel,jdbcType=INTEGER},
+      </if>
+      <if test="logtype != null">
+        #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileextention != null">
+        #{fileextention,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        #{addDate,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=CHAR},
+      </if>
+      <if test="idDatabaseLog != null">
+        #{idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameLog != null">
+        #{tableNameLog,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLogExample" resultType="java.lang.Long">
+    select count(*) from r_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_log
+    <set>
+      <if test="record.idLog != null">
+        ID_LOG = #{record.idLog,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idLoglevel != null">
+        ID_LOGLEVEL = #{record.idLoglevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.logtype != null">
+        LOGTYPE = #{record.logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null">
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileextention != null">
+        FILEEXTENTION = #{record.fileextention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addDate != null">
+        ADD_DATE = #{record.addDate,jdbcType=CHAR},
+      </if>
+      <if test="record.addTime != null">
+        ADD_TIME = #{record.addTime,jdbcType=CHAR},
+      </if>
+      <if test="record.idDatabaseLog != null">
+        ID_DATABASE_LOG = #{record.idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableNameLog != null">
+        TABLE_NAME_LOG = #{record.tableNameLog,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_log
+    set ID_LOG = #{record.idLog,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ID_LOGLEVEL = #{record.idLoglevel,jdbcType=INTEGER},
+      LOGTYPE = #{record.logtype,jdbcType=VARCHAR},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      FILEEXTENTION = #{record.fileextention,jdbcType=VARCHAR},
+      ADD_DATE = #{record.addDate,jdbcType=CHAR},
+      ADD_TIME = #{record.addTime,jdbcType=CHAR},
+      ID_DATABASE_LOG = #{record.idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{record.tableNameLog,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLog">
+    update r_log
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idLoglevel != null">
+        ID_LOGLEVEL = #{idLoglevel,jdbcType=INTEGER},
+      </if>
+      <if test="logtype != null">
+        LOGTYPE = #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileextention != null">
+        FILEEXTENTION = #{fileextention,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        ADD_DATE = #{addDate,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        ADD_TIME = #{addTime,jdbcType=CHAR},
+      </if>
+      <if test="idDatabaseLog != null">
+        ID_DATABASE_LOG = #{idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameLog != null">
+        TABLE_NAME_LOG = #{tableNameLog,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_LOG = #{idLog,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RLog">
+    update r_log
+    set NAME = #{name,jdbcType=VARCHAR},
+      ID_LOGLEVEL = #{idLoglevel,jdbcType=INTEGER},
+      LOGTYPE = #{logtype,jdbcType=VARCHAR},
+      FILENAME = #{filename,jdbcType=VARCHAR},
+      FILEEXTENTION = #{fileextention,jdbcType=VARCHAR},
+      ADD_DATE = #{addDate,jdbcType=CHAR},
+      ADD_TIME = #{addTime,jdbcType=CHAR},
+      ID_DATABASE_LOG = #{idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{tableNameLog,jdbcType=VARCHAR}
+    where ID_LOG = #{idLog,jdbcType=BIGINT}
+  </update>
+</mapper>

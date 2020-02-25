@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RVersionMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RVersion">
+    <id column="ID_VERSION" jdbcType="BIGINT" property="idVersion" />
+    <result column="MAJOR_VERSION" jdbcType="INTEGER" property="majorVersion" />
+    <result column="MINOR_VERSION" jdbcType="INTEGER" property="minorVersion" />
+    <result column="UPGRADE_DATE" jdbcType="TIMESTAMP" property="upgradeDate" />
+    <result column="IS_UPGRADE" jdbcType="CHAR" property="isUpgrade" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_VERSION, MAJOR_VERSION, MINOR_VERSION, UPGRADE_DATE, IS_UPGRADE
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from r_version
+    where ID_VERSION = #{idVersion,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_version
+    where ID_VERSION = #{idVersion,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersionExample">
+    delete from r_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersion">
+    insert into r_version (ID_VERSION, MAJOR_VERSION, MINOR_VERSION, 
+      UPGRADE_DATE, IS_UPGRADE)
+    values (#{idVersion,jdbcType=BIGINT}, #{majorVersion,jdbcType=INTEGER}, #{minorVersion,jdbcType=INTEGER}, 
+      #{upgradeDate,jdbcType=TIMESTAMP}, #{isUpgrade,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersion">
+    insert into r_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idVersion != null">
+        ID_VERSION,
+      </if>
+      <if test="majorVersion != null">
+        MAJOR_VERSION,
+      </if>
+      <if test="minorVersion != null">
+        MINOR_VERSION,
+      </if>
+      <if test="upgradeDate != null">
+        UPGRADE_DATE,
+      </if>
+      <if test="isUpgrade != null">
+        IS_UPGRADE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idVersion != null">
+        #{idVersion,jdbcType=BIGINT},
+      </if>
+      <if test="majorVersion != null">
+        #{majorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="minorVersion != null">
+        #{minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeDate != null">
+        #{upgradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpgrade != null">
+        #{isUpgrade,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersionExample" resultType="java.lang.Long">
+    select count(*) from r_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_version
+    <set>
+      <if test="record.idVersion != null">
+        ID_VERSION = #{record.idVersion,jdbcType=BIGINT},
+      </if>
+      <if test="record.majorVersion != null">
+        MAJOR_VERSION = #{record.majorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.minorVersion != null">
+        MINOR_VERSION = #{record.minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.upgradeDate != null">
+        UPGRADE_DATE = #{record.upgradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isUpgrade != null">
+        IS_UPGRADE = #{record.isUpgrade,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_version
+    set ID_VERSION = #{record.idVersion,jdbcType=BIGINT},
+      MAJOR_VERSION = #{record.majorVersion,jdbcType=INTEGER},
+      MINOR_VERSION = #{record.minorVersion,jdbcType=INTEGER},
+      UPGRADE_DATE = #{record.upgradeDate,jdbcType=TIMESTAMP},
+      IS_UPGRADE = #{record.isUpgrade,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersion">
+    update r_version
+    <set>
+      <if test="majorVersion != null">
+        MAJOR_VERSION = #{majorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="minorVersion != null">
+        MINOR_VERSION = #{minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeDate != null">
+        UPGRADE_DATE = #{upgradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpgrade != null">
+        IS_UPGRADE = #{isUpgrade,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID_VERSION = #{idVersion,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RVersion">
+    update r_version
+    set MAJOR_VERSION = #{majorVersion,jdbcType=INTEGER},
+      MINOR_VERSION = #{minorVersion,jdbcType=INTEGER},
+      UPGRADE_DATE = #{upgradeDate,jdbcType=TIMESTAMP},
+      IS_UPGRADE = #{isUpgrade,jdbcType=CHAR}
+    where ID_VERSION = #{idVersion,jdbcType=BIGINT}
+  </update>
+</mapper>

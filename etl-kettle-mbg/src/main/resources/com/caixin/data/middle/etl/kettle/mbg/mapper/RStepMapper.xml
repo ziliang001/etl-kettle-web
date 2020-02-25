@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RStepMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    <id column="ID_STEP" jdbcType="BIGINT" property="idStep" />
+    <result column="ID_TRANSFORMATION" jdbcType="INTEGER" property="idTransformation" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ID_STEP_TYPE" jdbcType="INTEGER" property="idStepType" />
+    <result column="DISTRIBUTE" jdbcType="CHAR" property="distribute" />
+    <result column="COPIES" jdbcType="INTEGER" property="copies" />
+    <result column="GUI_LOCATION_X" jdbcType="INTEGER" property="guiLocationX" />
+    <result column="GUI_LOCATION_Y" jdbcType="INTEGER" property="guiLocationY" />
+    <result column="GUI_DRAW" jdbcType="CHAR" property="guiDraw" />
+    <result column="COPIES_STRING" jdbcType="VARCHAR" property="copiesString" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_STEP, ID_TRANSFORMATION, NAME, ID_STEP_TYPE, DISTRIBUTE, COPIES, GUI_LOCATION_X, 
+    GUI_LOCATION_Y, GUI_DRAW, COPIES_STRING
+  </sql>
+  <sql id="Blob_Column_List">
+    DESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStepExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_step
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStepExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_step
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_step
+    where ID_STEP = #{idStep,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_step
+    where ID_STEP = #{idStep,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStepExample">
+    delete from r_step
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    insert into r_step (ID_STEP, ID_TRANSFORMATION, NAME, 
+      ID_STEP_TYPE, DISTRIBUTE, COPIES, 
+      GUI_LOCATION_X, GUI_LOCATION_Y, GUI_DRAW, 
+      COPIES_STRING, DESCRIPTION)
+    values (#{idStep,jdbcType=BIGINT}, #{idTransformation,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{idStepType,jdbcType=INTEGER}, #{distribute,jdbcType=CHAR}, #{copies,jdbcType=INTEGER}, 
+      #{guiLocationX,jdbcType=INTEGER}, #{guiLocationY,jdbcType=INTEGER}, #{guiDraw,jdbcType=CHAR}, 
+      #{copiesString,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    insert into r_step
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idStep != null">
+        ID_STEP,
+      </if>
+      <if test="idTransformation != null">
+        ID_TRANSFORMATION,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="idStepType != null">
+        ID_STEP_TYPE,
+      </if>
+      <if test="distribute != null">
+        DISTRIBUTE,
+      </if>
+      <if test="copies != null">
+        COPIES,
+      </if>
+      <if test="guiLocationX != null">
+        GUI_LOCATION_X,
+      </if>
+      <if test="guiLocationY != null">
+        GUI_LOCATION_Y,
+      </if>
+      <if test="guiDraw != null">
+        GUI_DRAW,
+      </if>
+      <if test="copiesString != null">
+        COPIES_STRING,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idStep != null">
+        #{idStep,jdbcType=BIGINT},
+      </if>
+      <if test="idTransformation != null">
+        #{idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idStepType != null">
+        #{idStepType,jdbcType=INTEGER},
+      </if>
+      <if test="distribute != null">
+        #{distribute,jdbcType=CHAR},
+      </if>
+      <if test="copies != null">
+        #{copies,jdbcType=INTEGER},
+      </if>
+      <if test="guiLocationX != null">
+        #{guiLocationX,jdbcType=INTEGER},
+      </if>
+      <if test="guiLocationY != null">
+        #{guiLocationY,jdbcType=INTEGER},
+      </if>
+      <if test="guiDraw != null">
+        #{guiDraw,jdbcType=CHAR},
+      </if>
+      <if test="copiesString != null">
+        #{copiesString,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStepExample" resultType="java.lang.Long">
+    select count(*) from r_step
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_step
+    <set>
+      <if test="record.idStep != null">
+        ID_STEP = #{record.idStep,jdbcType=BIGINT},
+      </if>
+      <if test="record.idTransformation != null">
+        ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idStepType != null">
+        ID_STEP_TYPE = #{record.idStepType,jdbcType=INTEGER},
+      </if>
+      <if test="record.distribute != null">
+        DISTRIBUTE = #{record.distribute,jdbcType=CHAR},
+      </if>
+      <if test="record.copies != null">
+        COPIES = #{record.copies,jdbcType=INTEGER},
+      </if>
+      <if test="record.guiLocationX != null">
+        GUI_LOCATION_X = #{record.guiLocationX,jdbcType=INTEGER},
+      </if>
+      <if test="record.guiLocationY != null">
+        GUI_LOCATION_Y = #{record.guiLocationY,jdbcType=INTEGER},
+      </if>
+      <if test="record.guiDraw != null">
+        GUI_DRAW = #{record.guiDraw,jdbcType=CHAR},
+      </if>
+      <if test="record.copiesString != null">
+        COPIES_STRING = #{record.copiesString,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_step
+    set ID_STEP = #{record.idStep,jdbcType=BIGINT},
+      ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ID_STEP_TYPE = #{record.idStepType,jdbcType=INTEGER},
+      DISTRIBUTE = #{record.distribute,jdbcType=CHAR},
+      COPIES = #{record.copies,jdbcType=INTEGER},
+      GUI_LOCATION_X = #{record.guiLocationX,jdbcType=INTEGER},
+      GUI_LOCATION_Y = #{record.guiLocationY,jdbcType=INTEGER},
+      GUI_DRAW = #{record.guiDraw,jdbcType=CHAR},
+      COPIES_STRING = #{record.copiesString,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_step
+    set ID_STEP = #{record.idStep,jdbcType=BIGINT},
+      ID_TRANSFORMATION = #{record.idTransformation,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ID_STEP_TYPE = #{record.idStepType,jdbcType=INTEGER},
+      DISTRIBUTE = #{record.distribute,jdbcType=CHAR},
+      COPIES = #{record.copies,jdbcType=INTEGER},
+      GUI_LOCATION_X = #{record.guiLocationX,jdbcType=INTEGER},
+      GUI_LOCATION_Y = #{record.guiLocationY,jdbcType=INTEGER},
+      GUI_DRAW = #{record.guiDraw,jdbcType=CHAR},
+      COPIES_STRING = #{record.copiesString,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    update r_step
+    <set>
+      <if test="idTransformation != null">
+        ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idStepType != null">
+        ID_STEP_TYPE = #{idStepType,jdbcType=INTEGER},
+      </if>
+      <if test="distribute != null">
+        DISTRIBUTE = #{distribute,jdbcType=CHAR},
+      </if>
+      <if test="copies != null">
+        COPIES = #{copies,jdbcType=INTEGER},
+      </if>
+      <if test="guiLocationX != null">
+        GUI_LOCATION_X = #{guiLocationX,jdbcType=INTEGER},
+      </if>
+      <if test="guiLocationY != null">
+        GUI_LOCATION_Y = #{guiLocationY,jdbcType=INTEGER},
+      </if>
+      <if test="guiDraw != null">
+        GUI_DRAW = #{guiDraw,jdbcType=CHAR},
+      </if>
+      <if test="copiesString != null">
+        COPIES_STRING = #{copiesString,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_STEP = #{idStep,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    update r_step
+    set ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      ID_STEP_TYPE = #{idStepType,jdbcType=INTEGER},
+      DISTRIBUTE = #{distribute,jdbcType=CHAR},
+      COPIES = #{copies,jdbcType=INTEGER},
+      GUI_LOCATION_X = #{guiLocationX,jdbcType=INTEGER},
+      GUI_LOCATION_Y = #{guiLocationY,jdbcType=INTEGER},
+      GUI_DRAW = #{guiDraw,jdbcType=CHAR},
+      COPIES_STRING = #{copiesString,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR}
+    where ID_STEP = #{idStep,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RStep">
+    update r_step
+    set ID_TRANSFORMATION = #{idTransformation,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      ID_STEP_TYPE = #{idStepType,jdbcType=INTEGER},
+      DISTRIBUTE = #{distribute,jdbcType=CHAR},
+      COPIES = #{copies,jdbcType=INTEGER},
+      GUI_LOCATION_X = #{guiLocationX,jdbcType=INTEGER},
+      GUI_LOCATION_Y = #{guiLocationY,jdbcType=INTEGER},
+      GUI_DRAW = #{guiDraw,jdbcType=CHAR},
+      COPIES_STRING = #{copiesString,jdbcType=VARCHAR}
+    where ID_STEP = #{idStep,jdbcType=BIGINT}
+  </update>
+</mapper>

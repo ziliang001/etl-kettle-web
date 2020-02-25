@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RJobHopMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RJobHop">
+    <id column="ID_JOB_HOP" jdbcType="BIGINT" property="idJobHop" />
+    <result column="ID_JOB" jdbcType="INTEGER" property="idJob" />
+    <result column="ID_JOBENTRY_COPY_FROM" jdbcType="INTEGER" property="idJobentryCopyFrom" />
+    <result column="ID_JOBENTRY_COPY_TO" jdbcType="INTEGER" property="idJobentryCopyTo" />
+    <result column="ENABLED" jdbcType="CHAR" property="enabled" />
+    <result column="EVALUATION" jdbcType="CHAR" property="evaluation" />
+    <result column="UNCONDITIONAL" jdbcType="CHAR" property="unconditional" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_JOB_HOP, ID_JOB, ID_JOBENTRY_COPY_FROM, ID_JOBENTRY_COPY_TO, ENABLED, EVALUATION, 
+    UNCONDITIONAL
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHopExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_job_hop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from r_job_hop
+    where ID_JOB_HOP = #{idJobHop,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_job_hop
+    where ID_JOB_HOP = #{idJobHop,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHopExample">
+    delete from r_job_hop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHop">
+    insert into r_job_hop (ID_JOB_HOP, ID_JOB, ID_JOBENTRY_COPY_FROM, 
+      ID_JOBENTRY_COPY_TO, ENABLED, EVALUATION, 
+      UNCONDITIONAL)
+    values (#{idJobHop,jdbcType=BIGINT}, #{idJob,jdbcType=INTEGER}, #{idJobentryCopyFrom,jdbcType=INTEGER}, 
+      #{idJobentryCopyTo,jdbcType=INTEGER}, #{enabled,jdbcType=CHAR}, #{evaluation,jdbcType=CHAR}, 
+      #{unconditional,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHop">
+    insert into r_job_hop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idJobHop != null">
+        ID_JOB_HOP,
+      </if>
+      <if test="idJob != null">
+        ID_JOB,
+      </if>
+      <if test="idJobentryCopyFrom != null">
+        ID_JOBENTRY_COPY_FROM,
+      </if>
+      <if test="idJobentryCopyTo != null">
+        ID_JOBENTRY_COPY_TO,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="evaluation != null">
+        EVALUATION,
+      </if>
+      <if test="unconditional != null">
+        UNCONDITIONAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idJobHop != null">
+        #{idJobHop,jdbcType=BIGINT},
+      </if>
+      <if test="idJob != null">
+        #{idJob,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryCopyFrom != null">
+        #{idJobentryCopyFrom,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryCopyTo != null">
+        #{idJobentryCopyTo,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="evaluation != null">
+        #{evaluation,jdbcType=CHAR},
+      </if>
+      <if test="unconditional != null">
+        #{unconditional,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHopExample" resultType="java.lang.Long">
+    select count(*) from r_job_hop
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_job_hop
+    <set>
+      <if test="record.idJobHop != null">
+        ID_JOB_HOP = #{record.idJobHop,jdbcType=BIGINT},
+      </if>
+      <if test="record.idJob != null">
+        ID_JOB = #{record.idJob,jdbcType=INTEGER},
+      </if>
+      <if test="record.idJobentryCopyFrom != null">
+        ID_JOBENTRY_COPY_FROM = #{record.idJobentryCopyFrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.idJobentryCopyTo != null">
+        ID_JOBENTRY_COPY_TO = #{record.idJobentryCopyTo,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null">
+        ENABLED = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.evaluation != null">
+        EVALUATION = #{record.evaluation,jdbcType=CHAR},
+      </if>
+      <if test="record.unconditional != null">
+        UNCONDITIONAL = #{record.unconditional,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_job_hop
+    set ID_JOB_HOP = #{record.idJobHop,jdbcType=BIGINT},
+      ID_JOB = #{record.idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_COPY_FROM = #{record.idJobentryCopyFrom,jdbcType=INTEGER},
+      ID_JOBENTRY_COPY_TO = #{record.idJobentryCopyTo,jdbcType=INTEGER},
+      ENABLED = #{record.enabled,jdbcType=CHAR},
+      EVALUATION = #{record.evaluation,jdbcType=CHAR},
+      UNCONDITIONAL = #{record.unconditional,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHop">
+    update r_job_hop
+    <set>
+      <if test="idJob != null">
+        ID_JOB = #{idJob,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryCopyFrom != null">
+        ID_JOBENTRY_COPY_FROM = #{idJobentryCopyFrom,jdbcType=INTEGER},
+      </if>
+      <if test="idJobentryCopyTo != null">
+        ID_JOBENTRY_COPY_TO = #{idJobentryCopyTo,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        ENABLED = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="evaluation != null">
+        EVALUATION = #{evaluation,jdbcType=CHAR},
+      </if>
+      <if test="unconditional != null">
+        UNCONDITIONAL = #{unconditional,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID_JOB_HOP = #{idJobHop,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RJobHop">
+    update r_job_hop
+    set ID_JOB = #{idJob,jdbcType=INTEGER},
+      ID_JOBENTRY_COPY_FROM = #{idJobentryCopyFrom,jdbcType=INTEGER},
+      ID_JOBENTRY_COPY_TO = #{idJobentryCopyTo,jdbcType=INTEGER},
+      ENABLED = #{enabled,jdbcType=CHAR},
+      EVALUATION = #{evaluation,jdbcType=CHAR},
+      UNCONDITIONAL = #{unconditional,jdbcType=CHAR}
+    where ID_JOB_HOP = #{idJobHop,jdbcType=BIGINT}
+  </update>
+</mapper>

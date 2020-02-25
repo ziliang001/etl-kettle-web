@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RSlaveMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RSlave">
+    <id column="ID_SLAVE" jdbcType="BIGINT" property="idSlave" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="HOST_NAME" jdbcType="VARCHAR" property="hostName" />
+    <result column="PORT" jdbcType="VARCHAR" property="port" />
+    <result column="WEB_APP_NAME" jdbcType="VARCHAR" property="webAppName" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="PROXY_HOST_NAME" jdbcType="VARCHAR" property="proxyHostName" />
+    <result column="PROXY_PORT" jdbcType="VARCHAR" property="proxyPort" />
+    <result column="NON_PROXY_HOSTS" jdbcType="VARCHAR" property="nonProxyHosts" />
+    <result column="MASTER" jdbcType="CHAR" property="master" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_SLAVE, NAME, HOST_NAME, PORT, WEB_APP_NAME, USERNAME, PASSWORD, PROXY_HOST_NAME, 
+    PROXY_PORT, NON_PROXY_HOSTS, MASTER
+  </sql>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlaveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from r_slave
+    where ID_SLAVE = #{idSlave,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_slave
+    where ID_SLAVE = #{idSlave,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlaveExample">
+    delete from r_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlave">
+    insert into r_slave (ID_SLAVE, NAME, HOST_NAME, 
+      PORT, WEB_APP_NAME, USERNAME, 
+      PASSWORD, PROXY_HOST_NAME, PROXY_PORT, 
+      NON_PROXY_HOSTS, MASTER)
+    values (#{idSlave,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, 
+      #{port,jdbcType=VARCHAR}, #{webAppName,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{proxyHostName,jdbcType=VARCHAR}, #{proxyPort,jdbcType=VARCHAR}, 
+      #{nonProxyHosts,jdbcType=VARCHAR}, #{master,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlave">
+    insert into r_slave
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idSlave != null">
+        ID_SLAVE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="hostName != null">
+        HOST_NAME,
+      </if>
+      <if test="port != null">
+        PORT,
+      </if>
+      <if test="webAppName != null">
+        WEB_APP_NAME,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="proxyHostName != null">
+        PROXY_HOST_NAME,
+      </if>
+      <if test="proxyPort != null">
+        PROXY_PORT,
+      </if>
+      <if test="nonProxyHosts != null">
+        NON_PROXY_HOSTS,
+      </if>
+      <if test="master != null">
+        MASTER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idSlave != null">
+        #{idSlave,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="webAppName != null">
+        #{webAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyHostName != null">
+        #{proxyHostName,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyPort != null">
+        #{proxyPort,jdbcType=VARCHAR},
+      </if>
+      <if test="nonProxyHosts != null">
+        #{nonProxyHosts,jdbcType=VARCHAR},
+      </if>
+      <if test="master != null">
+        #{master,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlaveExample" resultType="java.lang.Long">
+    select count(*) from r_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_slave
+    <set>
+      <if test="record.idSlave != null">
+        ID_SLAVE = #{record.idSlave,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostName != null">
+        HOST_NAME = #{record.hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null">
+        PORT = #{record.port,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webAppName != null">
+        WEB_APP_NAME = #{record.webAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proxyHostName != null">
+        PROXY_HOST_NAME = #{record.proxyHostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proxyPort != null">
+        PROXY_PORT = #{record.proxyPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nonProxyHosts != null">
+        NON_PROXY_HOSTS = #{record.nonProxyHosts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.master != null">
+        MASTER = #{record.master,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_slave
+    set ID_SLAVE = #{record.idSlave,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      HOST_NAME = #{record.hostName,jdbcType=VARCHAR},
+      PORT = #{record.port,jdbcType=VARCHAR},
+      WEB_APP_NAME = #{record.webAppName,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      PROXY_HOST_NAME = #{record.proxyHostName,jdbcType=VARCHAR},
+      PROXY_PORT = #{record.proxyPort,jdbcType=VARCHAR},
+      NON_PROXY_HOSTS = #{record.nonProxyHosts,jdbcType=VARCHAR},
+      MASTER = #{record.master,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlave">
+    update r_slave
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        HOST_NAME = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        PORT = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="webAppName != null">
+        WEB_APP_NAME = #{webAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyHostName != null">
+        PROXY_HOST_NAME = #{proxyHostName,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyPort != null">
+        PROXY_PORT = #{proxyPort,jdbcType=VARCHAR},
+      </if>
+      <if test="nonProxyHosts != null">
+        NON_PROXY_HOSTS = #{nonProxyHosts,jdbcType=VARCHAR},
+      </if>
+      <if test="master != null">
+        MASTER = #{master,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID_SLAVE = #{idSlave,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RSlave">
+    update r_slave
+    set NAME = #{name,jdbcType=VARCHAR},
+      HOST_NAME = #{hostName,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=VARCHAR},
+      WEB_APP_NAME = #{webAppName,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PROXY_HOST_NAME = #{proxyHostName,jdbcType=VARCHAR},
+      PROXY_PORT = #{proxyPort,jdbcType=VARCHAR},
+      NON_PROXY_HOSTS = #{nonProxyHosts,jdbcType=VARCHAR},
+      MASTER = #{master,jdbcType=CHAR}
+    where ID_SLAVE = #{idSlave,jdbcType=BIGINT}
+  </update>
+</mapper>

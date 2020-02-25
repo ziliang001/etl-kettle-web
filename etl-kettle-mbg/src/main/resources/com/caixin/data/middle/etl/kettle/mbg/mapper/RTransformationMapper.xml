@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caixin.data.middle.etl.kettle.mbg.mapper.RTransformationMapper">
+  <resultMap id="BaseResultMap" type="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    <id column="ID_TRANSFORMATION" jdbcType="BIGINT" property="idTransformation" />
+    <result column="ID_DIRECTORY" jdbcType="INTEGER" property="idDirectory" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TRANS_VERSION" jdbcType="VARCHAR" property="transVersion" />
+    <result column="TRANS_STATUS" jdbcType="INTEGER" property="transStatus" />
+    <result column="ID_STEP_READ" jdbcType="INTEGER" property="idStepRead" />
+    <result column="ID_STEP_WRITE" jdbcType="INTEGER" property="idStepWrite" />
+    <result column="ID_STEP_INPUT" jdbcType="INTEGER" property="idStepInput" />
+    <result column="ID_STEP_OUTPUT" jdbcType="INTEGER" property="idStepOutput" />
+    <result column="ID_STEP_UPDATE" jdbcType="INTEGER" property="idStepUpdate" />
+    <result column="ID_DATABASE_LOG" jdbcType="INTEGER" property="idDatabaseLog" />
+    <result column="TABLE_NAME_LOG" jdbcType="VARCHAR" property="tableNameLog" />
+    <result column="USE_BATCHID" jdbcType="CHAR" property="useBatchid" />
+    <result column="USE_LOGFIELD" jdbcType="CHAR" property="useLogfield" />
+    <result column="ID_DATABASE_MAXDATE" jdbcType="INTEGER" property="idDatabaseMaxdate" />
+    <result column="TABLE_NAME_MAXDATE" jdbcType="VARCHAR" property="tableNameMaxdate" />
+    <result column="FIELD_NAME_MAXDATE" jdbcType="VARCHAR" property="fieldNameMaxdate" />
+    <result column="OFFSET_MAXDATE" jdbcType="DOUBLE" property="offsetMaxdate" />
+    <result column="DIFF_MAXDATE" jdbcType="DOUBLE" property="diffMaxdate" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="createdUser" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="MODIFIED_USER" jdbcType="VARCHAR" property="modifiedUser" />
+    <result column="MODIFIED_DATE" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="SIZE_ROWSET" jdbcType="INTEGER" property="sizeRowset" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+    <result column="EXTENDED_DESCRIPTION" jdbcType="LONGVARCHAR" property="extendedDescription" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID_TRANSFORMATION, ID_DIRECTORY, NAME, TRANS_VERSION, TRANS_STATUS, ID_STEP_READ, 
+    ID_STEP_WRITE, ID_STEP_INPUT, ID_STEP_OUTPUT, ID_STEP_UPDATE, ID_DATABASE_LOG, TABLE_NAME_LOG, 
+    USE_BATCHID, USE_LOGFIELD, ID_DATABASE_MAXDATE, TABLE_NAME_MAXDATE, FIELD_NAME_MAXDATE, 
+    OFFSET_MAXDATE, DIFF_MAXDATE, CREATED_USER, CREATED_DATE, MODIFIED_USER, MODIFIED_DATE, 
+    SIZE_ROWSET
+  </sql>
+  <sql id="Blob_Column_List">
+    DESCRIPTION, EXTENDED_DESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformationExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_transformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from r_transformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_transformation
+    where ID_TRANSFORMATION = #{idTransformation,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from r_transformation
+    where ID_TRANSFORMATION = #{idTransformation,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformationExample">
+    delete from r_transformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    insert into r_transformation (ID_TRANSFORMATION, ID_DIRECTORY, NAME, 
+      TRANS_VERSION, TRANS_STATUS, ID_STEP_READ, 
+      ID_STEP_WRITE, ID_STEP_INPUT, ID_STEP_OUTPUT, 
+      ID_STEP_UPDATE, ID_DATABASE_LOG, TABLE_NAME_LOG, 
+      USE_BATCHID, USE_LOGFIELD, ID_DATABASE_MAXDATE, 
+      TABLE_NAME_MAXDATE, FIELD_NAME_MAXDATE, OFFSET_MAXDATE, 
+      DIFF_MAXDATE, CREATED_USER, CREATED_DATE, 
+      MODIFIED_USER, MODIFIED_DATE, SIZE_ROWSET, 
+      DESCRIPTION, EXTENDED_DESCRIPTION
+      )
+    values (#{idTransformation,jdbcType=BIGINT}, #{idDirectory,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{transVersion,jdbcType=VARCHAR}, #{transStatus,jdbcType=INTEGER}, #{idStepRead,jdbcType=INTEGER}, 
+      #{idStepWrite,jdbcType=INTEGER}, #{idStepInput,jdbcType=INTEGER}, #{idStepOutput,jdbcType=INTEGER}, 
+      #{idStepUpdate,jdbcType=INTEGER}, #{idDatabaseLog,jdbcType=INTEGER}, #{tableNameLog,jdbcType=VARCHAR}, 
+      #{useBatchid,jdbcType=CHAR}, #{useLogfield,jdbcType=CHAR}, #{idDatabaseMaxdate,jdbcType=INTEGER}, 
+      #{tableNameMaxdate,jdbcType=VARCHAR}, #{fieldNameMaxdate,jdbcType=VARCHAR}, #{offsetMaxdate,jdbcType=DOUBLE}, 
+      #{diffMaxdate,jdbcType=DOUBLE}, #{createdUser,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{modifiedUser,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, #{sizeRowset,jdbcType=INTEGER}, 
+      #{description,jdbcType=LONGVARCHAR}, #{extendedDescription,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    insert into r_transformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idTransformation != null">
+        ID_TRANSFORMATION,
+      </if>
+      <if test="idDirectory != null">
+        ID_DIRECTORY,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="transVersion != null">
+        TRANS_VERSION,
+      </if>
+      <if test="transStatus != null">
+        TRANS_STATUS,
+      </if>
+      <if test="idStepRead != null">
+        ID_STEP_READ,
+      </if>
+      <if test="idStepWrite != null">
+        ID_STEP_WRITE,
+      </if>
+      <if test="idStepInput != null">
+        ID_STEP_INPUT,
+      </if>
+      <if test="idStepOutput != null">
+        ID_STEP_OUTPUT,
+      </if>
+      <if test="idStepUpdate != null">
+        ID_STEP_UPDATE,
+      </if>
+      <if test="idDatabaseLog != null">
+        ID_DATABASE_LOG,
+      </if>
+      <if test="tableNameLog != null">
+        TABLE_NAME_LOG,
+      </if>
+      <if test="useBatchid != null">
+        USE_BATCHID,
+      </if>
+      <if test="useLogfield != null">
+        USE_LOGFIELD,
+      </if>
+      <if test="idDatabaseMaxdate != null">
+        ID_DATABASE_MAXDATE,
+      </if>
+      <if test="tableNameMaxdate != null">
+        TABLE_NAME_MAXDATE,
+      </if>
+      <if test="fieldNameMaxdate != null">
+        FIELD_NAME_MAXDATE,
+      </if>
+      <if test="offsetMaxdate != null">
+        OFFSET_MAXDATE,
+      </if>
+      <if test="diffMaxdate != null">
+        DIFF_MAXDATE,
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER,
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE,
+      </if>
+      <if test="modifiedUser != null">
+        MODIFIED_USER,
+      </if>
+      <if test="modifiedDate != null">
+        MODIFIED_DATE,
+      </if>
+      <if test="sizeRowset != null">
+        SIZE_ROWSET,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="extendedDescription != null">
+        EXTENDED_DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idTransformation != null">
+        #{idTransformation,jdbcType=BIGINT},
+      </if>
+      <if test="idDirectory != null">
+        #{idDirectory,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="transVersion != null">
+        #{transVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="transStatus != null">
+        #{transStatus,jdbcType=INTEGER},
+      </if>
+      <if test="idStepRead != null">
+        #{idStepRead,jdbcType=INTEGER},
+      </if>
+      <if test="idStepWrite != null">
+        #{idStepWrite,jdbcType=INTEGER},
+      </if>
+      <if test="idStepInput != null">
+        #{idStepInput,jdbcType=INTEGER},
+      </if>
+      <if test="idStepOutput != null">
+        #{idStepOutput,jdbcType=INTEGER},
+      </if>
+      <if test="idStepUpdate != null">
+        #{idStepUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="idDatabaseLog != null">
+        #{idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameLog != null">
+        #{tableNameLog,jdbcType=VARCHAR},
+      </if>
+      <if test="useBatchid != null">
+        #{useBatchid,jdbcType=CHAR},
+      </if>
+      <if test="useLogfield != null">
+        #{useLogfield,jdbcType=CHAR},
+      </if>
+      <if test="idDatabaseMaxdate != null">
+        #{idDatabaseMaxdate,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameMaxdate != null">
+        #{tableNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldNameMaxdate != null">
+        #{fieldNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetMaxdate != null">
+        #{offsetMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="diffMaxdate != null">
+        #{diffMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null">
+        #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sizeRowset != null">
+        #{sizeRowset,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extendedDescription != null">
+        #{extendedDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformationExample" resultType="java.lang.Long">
+    select count(*) from r_transformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update r_transformation
+    <set>
+      <if test="record.idTransformation != null">
+        ID_TRANSFORMATION = #{record.idTransformation,jdbcType=BIGINT},
+      </if>
+      <if test="record.idDirectory != null">
+        ID_DIRECTORY = #{record.idDirectory,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transVersion != null">
+        TRANS_VERSION = #{record.transVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transStatus != null">
+        TRANS_STATUS = #{record.transStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.idStepRead != null">
+        ID_STEP_READ = #{record.idStepRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.idStepWrite != null">
+        ID_STEP_WRITE = #{record.idStepWrite,jdbcType=INTEGER},
+      </if>
+      <if test="record.idStepInput != null">
+        ID_STEP_INPUT = #{record.idStepInput,jdbcType=INTEGER},
+      </if>
+      <if test="record.idStepOutput != null">
+        ID_STEP_OUTPUT = #{record.idStepOutput,jdbcType=INTEGER},
+      </if>
+      <if test="record.idStepUpdate != null">
+        ID_STEP_UPDATE = #{record.idStepUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.idDatabaseLog != null">
+        ID_DATABASE_LOG = #{record.idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableNameLog != null">
+        TABLE_NAME_LOG = #{record.tableNameLog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useBatchid != null">
+        USE_BATCHID = #{record.useBatchid,jdbcType=CHAR},
+      </if>
+      <if test="record.useLogfield != null">
+        USE_LOGFIELD = #{record.useLogfield,jdbcType=CHAR},
+      </if>
+      <if test="record.idDatabaseMaxdate != null">
+        ID_DATABASE_MAXDATE = #{record.idDatabaseMaxdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableNameMaxdate != null">
+        TABLE_NAME_MAXDATE = #{record.tableNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fieldNameMaxdate != null">
+        FIELD_NAME_MAXDATE = #{record.fieldNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offsetMaxdate != null">
+        OFFSET_MAXDATE = #{record.offsetMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.diffMaxdate != null">
+        DIFF_MAXDATE = #{record.diffMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createdUser != null">
+        CREATED_USER = #{record.createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null">
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifiedUser != null">
+        MODIFIED_USER = #{record.modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifiedDate != null">
+        MODIFIED_DATE = #{record.modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sizeRowset != null">
+        SIZE_ROWSET = #{record.sizeRowset,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.extendedDescription != null">
+        EXTENDED_DESCRIPTION = #{record.extendedDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update r_transformation
+    set ID_TRANSFORMATION = #{record.idTransformation,jdbcType=BIGINT},
+      ID_DIRECTORY = #{record.idDirectory,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TRANS_VERSION = #{record.transVersion,jdbcType=VARCHAR},
+      TRANS_STATUS = #{record.transStatus,jdbcType=INTEGER},
+      ID_STEP_READ = #{record.idStepRead,jdbcType=INTEGER},
+      ID_STEP_WRITE = #{record.idStepWrite,jdbcType=INTEGER},
+      ID_STEP_INPUT = #{record.idStepInput,jdbcType=INTEGER},
+      ID_STEP_OUTPUT = #{record.idStepOutput,jdbcType=INTEGER},
+      ID_STEP_UPDATE = #{record.idStepUpdate,jdbcType=INTEGER},
+      ID_DATABASE_LOG = #{record.idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{record.tableNameLog,jdbcType=VARCHAR},
+      USE_BATCHID = #{record.useBatchid,jdbcType=CHAR},
+      USE_LOGFIELD = #{record.useLogfield,jdbcType=CHAR},
+      ID_DATABASE_MAXDATE = #{record.idDatabaseMaxdate,jdbcType=INTEGER},
+      TABLE_NAME_MAXDATE = #{record.tableNameMaxdate,jdbcType=VARCHAR},
+      FIELD_NAME_MAXDATE = #{record.fieldNameMaxdate,jdbcType=VARCHAR},
+      OFFSET_MAXDATE = #{record.offsetMaxdate,jdbcType=DOUBLE},
+      DIFF_MAXDATE = #{record.diffMaxdate,jdbcType=DOUBLE},
+      CREATED_USER = #{record.createdUser,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      MODIFIED_USER = #{record.modifiedUser,jdbcType=VARCHAR},
+      MODIFIED_DATE = #{record.modifiedDate,jdbcType=TIMESTAMP},
+      SIZE_ROWSET = #{record.sizeRowset,jdbcType=INTEGER},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      EXTENDED_DESCRIPTION = #{record.extendedDescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update r_transformation
+    set ID_TRANSFORMATION = #{record.idTransformation,jdbcType=BIGINT},
+      ID_DIRECTORY = #{record.idDirectory,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TRANS_VERSION = #{record.transVersion,jdbcType=VARCHAR},
+      TRANS_STATUS = #{record.transStatus,jdbcType=INTEGER},
+      ID_STEP_READ = #{record.idStepRead,jdbcType=INTEGER},
+      ID_STEP_WRITE = #{record.idStepWrite,jdbcType=INTEGER},
+      ID_STEP_INPUT = #{record.idStepInput,jdbcType=INTEGER},
+      ID_STEP_OUTPUT = #{record.idStepOutput,jdbcType=INTEGER},
+      ID_STEP_UPDATE = #{record.idStepUpdate,jdbcType=INTEGER},
+      ID_DATABASE_LOG = #{record.idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{record.tableNameLog,jdbcType=VARCHAR},
+      USE_BATCHID = #{record.useBatchid,jdbcType=CHAR},
+      USE_LOGFIELD = #{record.useLogfield,jdbcType=CHAR},
+      ID_DATABASE_MAXDATE = #{record.idDatabaseMaxdate,jdbcType=INTEGER},
+      TABLE_NAME_MAXDATE = #{record.tableNameMaxdate,jdbcType=VARCHAR},
+      FIELD_NAME_MAXDATE = #{record.fieldNameMaxdate,jdbcType=VARCHAR},
+      OFFSET_MAXDATE = #{record.offsetMaxdate,jdbcType=DOUBLE},
+      DIFF_MAXDATE = #{record.diffMaxdate,jdbcType=DOUBLE},
+      CREATED_USER = #{record.createdUser,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      MODIFIED_USER = #{record.modifiedUser,jdbcType=VARCHAR},
+      MODIFIED_DATE = #{record.modifiedDate,jdbcType=TIMESTAMP},
+      SIZE_ROWSET = #{record.sizeRowset,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    update r_transformation
+    <set>
+      <if test="idDirectory != null">
+        ID_DIRECTORY = #{idDirectory,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="transVersion != null">
+        TRANS_VERSION = #{transVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="transStatus != null">
+        TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+      </if>
+      <if test="idStepRead != null">
+        ID_STEP_READ = #{idStepRead,jdbcType=INTEGER},
+      </if>
+      <if test="idStepWrite != null">
+        ID_STEP_WRITE = #{idStepWrite,jdbcType=INTEGER},
+      </if>
+      <if test="idStepInput != null">
+        ID_STEP_INPUT = #{idStepInput,jdbcType=INTEGER},
+      </if>
+      <if test="idStepOutput != null">
+        ID_STEP_OUTPUT = #{idStepOutput,jdbcType=INTEGER},
+      </if>
+      <if test="idStepUpdate != null">
+        ID_STEP_UPDATE = #{idStepUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="idDatabaseLog != null">
+        ID_DATABASE_LOG = #{idDatabaseLog,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameLog != null">
+        TABLE_NAME_LOG = #{tableNameLog,jdbcType=VARCHAR},
+      </if>
+      <if test="useBatchid != null">
+        USE_BATCHID = #{useBatchid,jdbcType=CHAR},
+      </if>
+      <if test="useLogfield != null">
+        USE_LOGFIELD = #{useLogfield,jdbcType=CHAR},
+      </if>
+      <if test="idDatabaseMaxdate != null">
+        ID_DATABASE_MAXDATE = #{idDatabaseMaxdate,jdbcType=INTEGER},
+      </if>
+      <if test="tableNameMaxdate != null">
+        TABLE_NAME_MAXDATE = #{tableNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldNameMaxdate != null">
+        FIELD_NAME_MAXDATE = #{fieldNameMaxdate,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetMaxdate != null">
+        OFFSET_MAXDATE = #{offsetMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="diffMaxdate != null">
+        DIFF_MAXDATE = #{diffMaxdate,jdbcType=DOUBLE},
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER = #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null">
+        MODIFIED_USER = #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sizeRowset != null">
+        SIZE_ROWSET = #{sizeRowset,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extendedDescription != null">
+        EXTENDED_DESCRIPTION = #{extendedDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_TRANSFORMATION = #{idTransformation,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    update r_transformation
+    set ID_DIRECTORY = #{idDirectory,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      TRANS_VERSION = #{transVersion,jdbcType=VARCHAR},
+      TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+      ID_STEP_READ = #{idStepRead,jdbcType=INTEGER},
+      ID_STEP_WRITE = #{idStepWrite,jdbcType=INTEGER},
+      ID_STEP_INPUT = #{idStepInput,jdbcType=INTEGER},
+      ID_STEP_OUTPUT = #{idStepOutput,jdbcType=INTEGER},
+      ID_STEP_UPDATE = #{idStepUpdate,jdbcType=INTEGER},
+      ID_DATABASE_LOG = #{idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{tableNameLog,jdbcType=VARCHAR},
+      USE_BATCHID = #{useBatchid,jdbcType=CHAR},
+      USE_LOGFIELD = #{useLogfield,jdbcType=CHAR},
+      ID_DATABASE_MAXDATE = #{idDatabaseMaxdate,jdbcType=INTEGER},
+      TABLE_NAME_MAXDATE = #{tableNameMaxdate,jdbcType=VARCHAR},
+      FIELD_NAME_MAXDATE = #{fieldNameMaxdate,jdbcType=VARCHAR},
+      OFFSET_MAXDATE = #{offsetMaxdate,jdbcType=DOUBLE},
+      DIFF_MAXDATE = #{diffMaxdate,jdbcType=DOUBLE},
+      CREATED_USER = #{createdUser,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      MODIFIED_USER = #{modifiedUser,jdbcType=VARCHAR},
+      MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP},
+      SIZE_ROWSET = #{sizeRowset,jdbcType=INTEGER},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      EXTENDED_DESCRIPTION = #{extendedDescription,jdbcType=LONGVARCHAR}
+    where ID_TRANSFORMATION = #{idTransformation,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caixin.data.middle.etl.kettle.mbg.model.RTransformation">
+    update r_transformation
+    set ID_DIRECTORY = #{idDirectory,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      TRANS_VERSION = #{transVersion,jdbcType=VARCHAR},
+      TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+      ID_STEP_READ = #{idStepRead,jdbcType=INTEGER},
+      ID_STEP_WRITE = #{idStepWrite,jdbcType=INTEGER},
+      ID_STEP_INPUT = #{idStepInput,jdbcType=INTEGER},
+      ID_STEP_OUTPUT = #{idStepOutput,jdbcType=INTEGER},
+      ID_STEP_UPDATE = #{idStepUpdate,jdbcType=INTEGER},
+      ID_DATABASE_LOG = #{idDatabaseLog,jdbcType=INTEGER},
+      TABLE_NAME_LOG = #{tableNameLog,jdbcType=VARCHAR},
+      USE_BATCHID = #{useBatchid,jdbcType=CHAR},
+      USE_LOGFIELD = #{useLogfield,jdbcType=CHAR},
+      ID_DATABASE_MAXDATE = #{idDatabaseMaxdate,jdbcType=INTEGER},
+      TABLE_NAME_MAXDATE = #{tableNameMaxdate,jdbcType=VARCHAR},
+      FIELD_NAME_MAXDATE = #{fieldNameMaxdate,jdbcType=VARCHAR},
+      OFFSET_MAXDATE = #{offsetMaxdate,jdbcType=DOUBLE},
+      DIFF_MAXDATE = #{diffMaxdate,jdbcType=DOUBLE},
+      CREATED_USER = #{createdUser,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      MODIFIED_USER = #{modifiedUser,jdbcType=VARCHAR},
+      MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP},
+      SIZE_ROWSET = #{sizeRowset,jdbcType=INTEGER}
+    where ID_TRANSFORMATION = #{idTransformation,jdbcType=BIGINT}
+  </update>
+</mapper>
