@@ -33,7 +33,7 @@
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 #      jdbc-url: jdbc:mysql://localhost:3306/web_kettle?serverTimezone=Asia/Shanghai&useFastDateParsing=false&characterEncoding=UTF-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
 #      username: root
-#      password: 123456
+#      password: root
 #      druid:
 #        initial-size: 5 #连接池初始化大小
 #        min-idle: 10 #最小空闲连接数
@@ -49,7 +49,7 @@
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    jdbc-url: jdbc:mysql://localhost:3306/web_kettle?serverTimezone=Asia/Shanghai&useFastDateParsing=false&characterEncoding=UTF-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
 #      username: root
-#      password: 123456
+#      password: root
 #      druid:
 #        initial-size: 5 #连接池初始化大小
 #        min-idle: 10 #最小空闲连接数
@@ -79,7 +79,7 @@ server:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    jdbc-url: jdbc:mysql://localhost:3306/kettle?serverTimezone=Asia/Shanghai&useFastDateParsing=false&characterEncoding=UTF-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
 #    username: root
-#    password: 123456
+#    password: root
 #    druid:
 #      initial-size: 5 #连接池初始化大小
 #      min-idle: 10 #最小空闲连接数
@@ -95,7 +95,7 @@ server:
 #    driver-class-name: com.mysql.jdbc.Driver
 #    jdbc-url: jdbc:mysql://localhost:3306/kettle?serverTimezone=Asia/Shanghai&useFastDateParsing=false&characterEncoding=UTF-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
 #    username: root
-#    password: 123456
+#    password: root
 #    druid:
 #      initial-size: 5 #连接池初始化大小
 #      min-idle: 10 #最小空闲连接数
@@ -130,6 +130,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/kettle?serverTimezone=Asia/Shanghai&useFastDateParsing=false&characterEncoding=UTF-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: 123456
+    password: root
     hikari:
       jdbc-url: com.mysql.cj.jdbc.Driver
